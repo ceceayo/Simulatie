@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Simulatie.Migrations
 {
     [DbContext(typeof(SimulationDatabaseContext))]
-    partial class SimulationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240925073739_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -32,7 +35,7 @@ namespace Simulatie.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("SimulatedUnits", (string)null);
+                    b.ToTable("SimulatedUnits");
                 });
 
             modelBuilder.Entity("UnitArgument", b =>
@@ -55,7 +58,7 @@ namespace Simulatie.Migrations
 
                     b.HasIndex("SimulatedUnitId");
 
-                    b.ToTable("UnitArguments", (string)null);
+                    b.ToTable("UnitArguments");
                 });
 
             modelBuilder.Entity("SimulatedUnit", b =>

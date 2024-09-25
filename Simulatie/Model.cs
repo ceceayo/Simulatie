@@ -13,7 +13,8 @@ public class SimulationDatabaseContext : DbContext
      * the class SimulationDatabaseContext is used to interact with the database.
      * This class takes care of getting tables and connecting the database.
      */
-    public DbSet<SimulatedUnit> Blogs { get; set; }
+    public DbSet<SimulatedUnit> SimulatedUnits { get; set; }
+    public DbSet<UnitArgument> UnitArguments { get; set; }
 
     public string DbPath { get; }
 
@@ -41,7 +42,17 @@ public class SimulatedUnit
      */
     public int Id { set; get; }
     public int Type { set; get; }
-    
+
     public SimulatedUnit? Owner { set; get; }
+    public UnitArgument[] Arguments { set; get; } = Array.Empty<UnitArgument>();
 }
 
+public class UnitArgument
+{
+    /*
+     * Some units have more data attached to them. This data is stored in UnitArguments.
+     */
+    public int Id { set; get; }
+    public int Type { set; get; }
+    public string Value { set; get; } = string.Empty;
+}
