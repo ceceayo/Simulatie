@@ -18,6 +18,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="serilog" Version="4.0.2" />
+    <PackageReference Include="serilog.sinks.console" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

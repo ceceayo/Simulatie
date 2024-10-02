@@ -4,17 +4,21 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 using Simulatie.UnitTypes;
 
 namespace Simulatie
 {
     public class UnitProvider
     {
-        public Dictionary<int, Type> Types = new Dictionary<int, Type>();
+        public Dictionary<int, Type> Types = new Dictionary<int, Type>
+        {
+            { 1, typeof(City) }
+        };
 
         public UnitProvider()
         {
-            Types.Add(1, typeof(City));
+            Log.Debug("Created a unitprovider");
         }
 
         public Type? GetType(int type)

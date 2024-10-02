@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Linq;
 using Simulatie;
+using Serilog;
+
+using var log = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .CreateLogger();
+Log.Logger = log;
 
 using var db = new SimulationDatabaseContext();
 
 // Note: This sample requires the database to be created before running.
-Console.WriteLine($"Database path: {db.DbPath}.");
+Log.Information("Database path is {DbPath}.", db.DbPath);
 
 var UP = new UnitProvider();
 
 var x = new SimulatedUnit { Type = 1 };
+Log.Debug("Created a SU {@x}.", x);
 var o = db.SimulatedUnits.Add(x);
+Log.Debug("SU changed to {@x}.", x);
 db.SaveChanges();
 
 Console.WriteLine(UP.GetInstance(x.Id, db));
