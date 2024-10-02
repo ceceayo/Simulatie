@@ -23,5 +23,7 @@ var o = db.SimulatedUnits.Add(x);
 db.SaveChanges();
 Log.Debug("SU changed to {@x}.", x);
 
-Console.WriteLine(UP.GetInstance(x.Id, db));
-Console.WriteLine(UP.GetInstance(x.Id + 1, db)); // this will fail!
+IUnitType? instance = UP.GetInstance(x.Id, db);
+IUnitType? instance_failing = UP.GetInstance(x.Id + 1, db);
+Log.Information("Instance data {@instance}", instance);
+Log.Information("Data of an instance which does not exist {@instance_failing}", instance_failing);
