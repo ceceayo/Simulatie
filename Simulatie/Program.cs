@@ -6,6 +6,7 @@ using Serilog;
 using var log = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
+    .WriteTo.Debug()
     .CreateLogger();
 Log.Logger = log;
 
