@@ -21,6 +21,7 @@
     <PackageReference Include="serilog" Version="4.0.2" />
     <PackageReference Include="serilog.sinks.console" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
