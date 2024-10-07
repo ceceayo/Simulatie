@@ -20,7 +20,7 @@ namespace Simulatie.UnitTypes
 
         public IUnitType? OnTick()
         {
-            return this.MemberwiseClone() as IUnitType;
+            return new City(this.Id, this.arguments);
         }
 
     }

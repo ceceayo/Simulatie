@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulatie
 {
-    public interface IUnitType : ICloneable
+    public interface IUnitType
     {
         public int TypeNum { get; }
         public int Id { get; }
