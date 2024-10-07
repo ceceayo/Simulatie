@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Simulatie
 {
-    public interface IUnitType
+    public interface IUnitType : ICloneable
     {
         public int TypeNum { get; }
         public int Id { get; }
         public Dictionary<int, string> arguments { get; }
+        public IUnitType? OnTick();
     }
 }
