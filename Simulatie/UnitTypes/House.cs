@@ -17,9 +17,13 @@ namespace Simulatie.UnitTypes
             this.Id = id;
         }
 
-        public IUnitType? OnTick()
+        public UnitTickResponse? OnTick()
         {
-            throw new NotImplementedException();
+            return new UnitTickResponse
+            {
+                newunit = new House(args: this.arguments, Id: this.Id),
+                resources_used = 4
+            };
         }
     }
 }
