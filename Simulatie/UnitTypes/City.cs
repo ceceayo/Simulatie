@@ -12,16 +12,19 @@ namespace Simulatie.UnitTypes
         public int Id { get; set; }
         public Dictionary<int, string> arguments { get; set; } = new Dictionary<int, string>();
 
-        public City(int id, Dictionary<int, string> args)
+        public City(int Id, Dictionary<int, string> args)
         {
-            this.Id = id;
+            this.Id = Id;
             this.arguments = args;
         }
 
-        public IUnitType? OnTick()
+        public UnitTickResponse? OnTick()
         {
-            return new City(this.Id, this.arguments);
+            return new UnitTickResponse
+            {
+                newunit = new City(args: this.arguments, Id: this.Id),
+                resources_used = 0
+            };
         }
-
     }
 }
