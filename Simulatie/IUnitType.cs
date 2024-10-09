@@ -11,6 +11,6 @@ namespace Simulatie
         public int TypeNum { get; }
         public int Id { get; }
         public Dictionary<int, string> arguments { get; }
-        public IUnitType? OnTick();
+        public UnitTickResponse? OnTick();
     }
 }

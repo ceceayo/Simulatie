@@ -2,6 +2,7 @@
 using System.Linq;
 using Simulatie;
 using Serilog;
+using Simulatie.UnitTypes;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -27,16 +28,24 @@ var UP = new UnitProvider();
 int create_simulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
+    var x = new SimulatedUnit { Type = 1, Owner = null };
+    Log.Debug("Created a new simulated unit @{x}", x);
+    db.SimulatedUnits.Add(x);
+    db.SaveChanges();
+    var id = x.Id;
+    Log.Information("Added unit to db with Id {id}", id);
     return 0;
 }
 
-var x = new SimulatedUnit { Type = 1 };
-Log.Debug("Created a SU {@x}.", x);
-var o = db.SimulatedUnits.Add(x);
-db.SaveChanges();
-Log.Debug("SU changed to {@x}.", x);
+Log.Information("Waiting for OPTION to be selected. [c]reate simulation");
+char input = Console.ReadKey().KeyChar;
+Console.WriteLine();
 
-IUnitType? instance = UP.GetInstance(x.Id, db);
-IUnitType? instance_failing = UP.GetInstance(x.Id + 1, db);
-Log.Information("Instance data {@instance}", instance);
-Log.Information("Data of an instance which does not exist {@instance_failing}", instance_failing);
+if (input == 'c')
+{
+    create_simulation();
+}
+else
+{
+    Log.Error("Invalid input. No such option {input}", input);
+}
