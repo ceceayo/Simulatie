@@ -15,6 +15,12 @@ namespace Simulatie.UnitTypes
         public City(int id, Dictionary<int, string> args)
         {
             this.Id = id;
+            this.arguments = args;
+        }
+
+        public IUnitType? OnTick()
+        {
+            return new City(this.Id, this.arguments);
         }
 
     }
