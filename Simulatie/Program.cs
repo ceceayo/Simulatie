@@ -33,6 +33,13 @@ int create_simulation()
     db.SaveChanges();
     var id = x.Id;
     Log.Information("Added unit to db with Id {id}", id);
+    Log.Information("Make a new House");
+    var y = new SimulatedUnit { Type = 2, Owner = db.SimulatedUnits.Find(id) };
+    Log.Information("Created a new simulated unit @{y}", y);
+    db.SimulatedUnits.Add(y);
+    db.SaveChanges();
+    id = y.Id;
+    Log.Information("Added unit to db, with id {id}", id);
     return 0;
 }
 
