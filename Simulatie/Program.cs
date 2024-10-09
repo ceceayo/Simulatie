@@ -23,14 +23,13 @@ Log.Information("Database path is {DbPath}.", db.DbPath);
 
 var UP = new UnitProvider();
 
-
-int create_simulation()
+static int create_simulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
     return 0;
 }
 
-var x = new SimulatedUnit { Type = 1 };
+var x = new SimulatedUnit { Type = 2 };
 Log.Debug("Created a SU {@x}.", x);
 var o = db.SimulatedUnits.Add(x);
 db.SaveChanges();
