@@ -17,5 +17,9 @@ namespace Simulatie.UnitTypes
             this.Id = id;
         }
 
+        public IUnitType? OnTick()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
