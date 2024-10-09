@@ -2,6 +2,7 @@
 using System.Linq;
 using Simulatie;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using Simulatie.UnitTypes;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -10,7 +11,7 @@ var LogPath = System.IO.Path.Join(path, "simulatie.log");
 
 using var log = new LoggerConfiguration()
     .MinimumLevel.Debug()
-    .WriteTo.Console()
+    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
     .WriteTo.Debug()
     .WriteTo.File(LogPath)
     .CreateLogger();
@@ -28,14 +29,14 @@ int create_simulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
     var x = new SimulatedUnit { Type = 1, Owner = null };
-    Log.Debug("Created a new simulated unit @{x}", x);
+    Log.Debug("Created a new simulated unit {@x}", x);
     db.SimulatedUnits.Add(x);
     db.SaveChanges();
     var id = x.Id;
     Log.Information("Added unit to db with Id {id}", id);
     Log.Information("Make a new House");
     var y = new SimulatedUnit { Type = 2, Owner = db.SimulatedUnits.Find(id) };
-    Log.Information("Created a new simulated unit @{y}", y);
+    Log.Information("Created a new simulated unit {@y}", y);
     db.SimulatedUnits.Add(y);
     db.SaveChanges();
     id = y.Id;
@@ -87,3 +88,6 @@ else
 {
     Log.Error("Invalid input. No such option {input}", input);
 }
+
+Log.Information("Finishing up. Good-bye!");
+Log.CloseAndFlush();
