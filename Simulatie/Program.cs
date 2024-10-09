@@ -24,7 +24,7 @@ Log.Information("Database path is {DbPath}.", db.DbPath);
 
 var UP = new UnitProvider();
 
-static int create_simulation()
+int create_simulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
     var x = new SimulatedUnit { Type = 1, Owner = null };
