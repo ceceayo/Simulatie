@@ -64,13 +64,17 @@ namespace Simulatie
             Log.Information("Id of new unit is {x.Id}", x);
             return x.Id;
         }
-        public List<IUnitType> GetAllOwnedBy(IUnitType owner,  SimulationDatabaseContext db)
+        public List<IUnitType> GetAllOwnedBy(IUnitType owner, SimulationDatabaseContext db)
         {
-            var x = db.SimulatedUnits.Where(b => b.Owner == owner).ToList();
+            var x = db.SimulatedUnits.Where(b => b.Owner == db.SimulatedUnits.Find(owner.Id)).ToList();
             List<IUnitType> y = new List<IUnitType>();
+            Log.Debug("x is {@x}", x);
             foreach (var z in x)
             {
-                y.Add(this.GetInstance(z.Id, db));
+                if (z is SimulatedUnit)
+                {
+                    y.Add(this.GetInstance(z.Id, db));
+                } else { Log.Error("z is not a SimulatedUnit"); }
             }
             return y;
         }

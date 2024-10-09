@@ -45,7 +45,9 @@ int create_simulation()
 
 int run_simulation_at(IUnitType start)
 {
-
+    Log.Information("Running simulation at {@start}", start);
+    var children = UP.GetAllOwnedBy(start, db);
+    Log.Information("Children of {Id} are {@children}", start.Id, children);
     return 0;
 }
 
