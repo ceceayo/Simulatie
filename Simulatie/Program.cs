@@ -40,16 +40,46 @@ int create_simulation()
     db.SaveChanges();
     id = y.Id;
     Log.Information("Added unit to db, with id {id}", id);
+    return x.Id;
+}
+
+int run_simulation_at(IUnitType start)
+{
+
     return 0;
 }
 
-Log.Information("Waiting for OPTION to be selected. [c]reate simulation");
+Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim.");
 char input = Console.ReadKey().KeyChar;
 Console.WriteLine();
 
 if (input == 'c')
 {
-    create_simulation();
+    var res = create_simulation();
+    Log.Information("Finished creating simulation with id {res}", res);
+}
+else if (input == 'r')
+{
+    Log.Information("Please type the number of the id to start simulating.");
+    var inputLine = Console.ReadLine();
+    if (inputLine != null)
+    {
+        var start_id = int.Parse(inputLine);
+        var instance = UP.GetInstance(start_id, db);
+        if (instance != null)
+        {
+            Log.Information("running simulation on {@instance}", instance);
+            var res = run_simulation_at(instance);
+        }
+        else
+        {
+            Log.Error("No instance for your start_id {inputLine}", inputLine);
+        }
+    }
+    else
+    {
+        Log.Error("No input received for simulation start id {inputLine}.", inputLine);
+    }
 }
 else
 {
