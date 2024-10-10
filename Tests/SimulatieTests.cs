@@ -43,6 +43,7 @@ public class SimulatieTests
     public void TestCreateUnitProvider()
     {
         var up = new UnitProvider();
+        Assert.IsNotNull(up);
     }
 
     [TestMethod]
