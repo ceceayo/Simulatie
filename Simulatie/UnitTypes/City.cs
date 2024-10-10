@@ -10,7 +10,7 @@ namespace Simulatie.UnitTypes
     {
         public int TypeNum { get; } = 1;
         public int Id { get; set; }
-        public Dictionary<int, string> arguments { get; set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> arguments { get; set; }
 
         public City(int Id, Dictionary<int, string> args)
         {

@@ -73,7 +73,7 @@ namespace Simulatie
             {
                 if (z is SimulatedUnit)
                 {
-                    y.Add(this.GetInstance(z.Id, db));
+                    y.Add(this.GetInstance(z.Id, db) ?? throw new InvalidOperationException());
                 } else { Log.Error("z is not a SimulatedUnit"); }
             }
             return y;
