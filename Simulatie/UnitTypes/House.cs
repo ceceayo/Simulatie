@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simulatie.UnitTypes
+﻿namespace Simulatie.UnitTypes
 {
     public class House : IUnitType
     {
         public int TypeNum { get; } = 2;
         public int Id { get; set; }
-        public Dictionary<int, string> arguments { get; set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
 
-        public House(int Id, Dictionary<int, string> args)
+        public House(int id, Dictionary<int, string> args)
         {
-            this.Id = Id;
+            this.Id = id;
         }
 
         public UnitTickResponse? OnTick()
         {
             return new UnitTickResponse
             {
-                newunit = new House(args: this.arguments, Id: this.Id),
-                resources_used = 4
+                NewUnit = new House(args: this.Arguments, id: this.Id),
+                ResourcesUsed = 4
             };
         }
     }

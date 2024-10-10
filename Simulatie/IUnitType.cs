@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Simulatie
+﻿namespace Simulatie
 {
     public interface IUnitType
     {
         public int TypeNum { get; }
         public int Id { get; }
-        public Dictionary<int, string> arguments { get; }
+        public Dictionary<int, string> Arguments { get; }
         public UnitTickResponse? OnTick();
     }
 }

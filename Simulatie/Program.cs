@@ -1,19 +1,16 @@
-﻿using System;
-using System.Linq;
-using Simulatie;
+﻿using Simulatie;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using Simulatie.UnitTypes;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
-var LogPath = System.IO.Path.Join(path, "simulatie.log");
+var logPath = Path.Join(path, "simulatie.log");
 
 using var log = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console(theme: AnsiConsoleTheme.Code)
     .WriteTo.Debug()
-    .WriteTo.File(LogPath)
+    .WriteTo.File(logPath)
     .CreateLogger();
 Log.Logger = log;
 
@@ -23,9 +20,9 @@ Log.Information("Created a database {db}", db);
 // Note: This sample requires the database to be created before running.
 Log.Information("Database path is {DbPath}.", db.DbPath);
 
-var UP = new UnitProvider();
+var up = new UnitProvider();
 
-int create_simulation()
+int CreateSimulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
     var x = new SimulatedUnit { Type = 1, Owner = null };
@@ -44,10 +41,10 @@ int create_simulation()
     return x.Id;
 }
 
-int run_simulation_at(IUnitType start)
+int RunSimulationAt(IUnitType start)
 {
     Log.Information("Running simulation at {@start}", start);
-    var children = UP.GetAllOwnedBy(start, db);
+    var children = up.GetAllOwnedBy(start, db);
     Log.Information("Children of {Id} are {@children}", start.Id, children);
     return 0;
 }
@@ -58,7 +55,7 @@ Console.WriteLine();
 
 if (input == 'c')
 {
-    var res = create_simulation();
+    var res = CreateSimulation();
     Log.Information("Finished creating simulation with id {res}", res);
 }
 else if (input == 'r')
@@ -67,12 +64,13 @@ else if (input == 'r')
     var inputLine = Console.ReadLine();
     if (inputLine != null)
     {
-        var start_id = int.Parse(inputLine);
-        var instance = UP.GetInstance(start_id, db);
+        var startId = int.Parse(inputLine);
+        var instance = up.GetInstance(startId, db);
         if (instance != null)
         {
             Log.Information("running simulation on {@instance}", instance);
-            var res = run_simulation_at(instance);
+            var res = RunSimulationAt(instance);
+            log.Information("RunSimulationAt returned {res}", res);
         }
         else
         {

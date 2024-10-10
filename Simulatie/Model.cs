@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Simulatie
 {
@@ -24,7 +19,7 @@ namespace Simulatie
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "simulatie.db");
+            DbPath = Path.Join(path, "simulatie.db");
         }
 
         // The following configures EF to create a Sqlite database file in the
@@ -56,6 +51,7 @@ namespace Simulatie
          */
         public int Id { set; get; }
         public int Type { set; get; }
+        // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
         public string Value { set; get; } = string.Empty;
     }
 }
