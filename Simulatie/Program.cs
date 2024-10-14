@@ -44,6 +44,12 @@ int CreateSimulation()
 int RunSimulationAt(IUnitType start)
 {
     Log.Information("Running simulation at {@start}", start);
+    int TotalPowerUsed = 0;
+    List<IUnitType> new_units = new List<IUnitType>();
+    var result = start.OnTick(db);
+    TotalPowerUsed += result.ResourcesUsed;
+    new_units.Add(result.NewUnit);
+    Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
     var children = up.GetAllOwnedBy(start, db);
     Log.Information("Children of {Id} are {@children}", start.Id, children);
     return 0;
