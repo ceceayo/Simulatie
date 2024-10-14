@@ -88,4 +88,7 @@ else
 }
 
 Log.Information("Finishing up. Good-bye!");
+
+db.SaveChanges();
+
 Log.CloseAndFlush();
