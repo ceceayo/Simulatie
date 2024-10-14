@@ -12,7 +12,7 @@
             this.Arguments = args;
         }
 
-        public UnitTickResponse? OnTick()
+        public UnitTickResponse? OnTick(SimulationDatabaseContext db)
         {
             return new UnitTickResponse
             {
