@@ -42,7 +42,7 @@ namespace Simulatie
         public int Type { set; get; }
 
         public SimulatedUnit? Owner { set; get; }
-        public UnitArgument[] Arguments { set; get; } = Array.Empty<UnitArgument>();
+        public List<UnitArgument> Arguments { set; get; } = new List<UnitArgument>();
     }
 
     public class UnitArgument
