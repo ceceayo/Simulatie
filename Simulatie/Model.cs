@@ -42,7 +42,6 @@ namespace Simulatie
         public int Type { set; get; }
 
         public SimulatedUnit? Owner { set; get; }
-        public List<UnitArgument> Arguments { set; get; } = new List<UnitArgument>();
     }
 
     public class UnitArgument
@@ -51,6 +50,7 @@ namespace Simulatie
          * Some units have more data attached to them. This data is stored in UnitArguments.
          */
         public int Id { set; get; }
+        public SimulatedUnit Owner { set; get; }
         public int Type { set; get; }
         // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
         public string Value { set; get; } = string.Empty;
