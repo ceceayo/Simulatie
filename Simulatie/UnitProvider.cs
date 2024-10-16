@@ -72,5 +72,12 @@ namespace Simulatie
             }
             return y;
         }
+
+        public Dictionary<int, string> GetArgsByUnit(SimulatedUnit unit, SimulationDatabaseContext db)
+        {
+            var x = db.UnitArguments.Where(b => b.Owner == db.SimulatedUnits.Find(unit.Id)).ToList();
+            Log.Debug("GetArgsByUnit for unit {@unit} has result from db {@x}.", unit, x);
+            return new Dictionary<int, string>();
+        }
     }
 }

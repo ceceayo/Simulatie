@@ -36,6 +36,9 @@ int CreateSimulation()
     Log.Information("Created a new simulated unit {@y}", y);
     db.SimulatedUnits.Add(y);
     db.SaveChanges();
+    var z = new UnitArgument { Type = 1, Owner = y, Value = "Mussolini is fantastisch" };
+    db.UnitArguments.Add(z);
+    db.SaveChanges();
     id = y.Id;
     Log.Information("Added unit to db, with id {id}", id);
     return x.Id;
@@ -79,7 +82,7 @@ int RunSimulationAt(IUnitType start)
     return 0;
 }
 
-Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim.");
+Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim., [t]est.");
 char input = Console.ReadKey().KeyChar;
 Console.WriteLine();
 
@@ -111,6 +114,10 @@ else if (input == 'r')
     {
         Log.Error("No input received for simulation start id {inputLine}.", inputLine);
     }
+}
+else if (input == 't')
+{
+    up.GetArgsByUnit(db.SimulatedUnits.Where(b => b.Id == 5).First(), db);
 }
 else
 {
