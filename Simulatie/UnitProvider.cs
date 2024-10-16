@@ -77,7 +77,14 @@ namespace Simulatie
         {
             var x = db.UnitArguments.Where(b => b.Owner == db.SimulatedUnits.Find(unit.Id)).ToList();
             Log.Debug("GetArgsByUnit for unit {@unit} has result from db {@x}.", unit, x);
-            return new Dictionary<int, string>();
+            var list = new Dictionary<int, string>();
+            foreach (UnitArgument z in x)
+            {
+                Log.Debug("Working on making args in GetArgsByUnit. Doing arg {@arg}", z);
+                list.Add(z.Id, z.Value);
+            }
+            Log.Debug("GetArgsByUnit will send {@list}", list);
+            return list;
         }
     }
 }
