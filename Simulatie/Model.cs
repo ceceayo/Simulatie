@@ -12,6 +12,7 @@ namespace Simulatie
          */
         public DbSet<SimulatedUnit> SimulatedUnits { get; set; }
         public DbSet<UnitArgument> UnitArguments { get; set; }
+        public DbSet<Simulation> Simulations { get; set; }
 
         public string DbPath { get; }
 
@@ -53,5 +54,15 @@ namespace Simulatie
         public int Type { set; get; }
         // ReSharper disable once EntityFramework.ModelValidation.UnlimitedStringLength
         public string Value { set; get; } = string.Empty;
+    }
+
+    public class Simulation
+    {
+        /*
+         * Some units have more data attached to them. This data is stored in UnitArguments.
+         */
+        public int Id { set; get; }
+        public SimulatedUnit Unit { set; get; }
+        public int TotalResourcesUsed { set; get; }
     }
 }
