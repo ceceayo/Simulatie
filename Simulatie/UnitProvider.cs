@@ -32,7 +32,7 @@ namespace Simulatie
             if (Types.ContainsKey(o.Type))
             {
                 var t = Types[o.Type];
-                var i = Activator.CreateInstance(t, [id, new Dictionary<int, string>()]) as IUnitType;
+                var i = Activator.CreateInstance(t, [id, GetArgsByUnit(o, db)]) as IUnitType;
                 return i;
             }
             return null;
