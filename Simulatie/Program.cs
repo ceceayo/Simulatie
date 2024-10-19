@@ -25,6 +25,7 @@ var up = new UnitProvider();
 int CreateSimulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
+    /*
     var x = new SimulatedUnit { Type = 1, Owner = null };
     Log.Debug("Created a new simulated unit {@x}", x);
     db.SimulatedUnits.Add(x);
@@ -42,6 +43,18 @@ int CreateSimulation()
     id = y.Id;
     Log.Information("Added unit to db, with id {id}", id);
     return x.Id;
+    */
+    SimulatedUnit rootCity = new SimulatedUnit { Type = 1, Owner = null };
+    SimulatedUnit testHouse = new SimulatedUnit { Type = 2, Owner = rootCity };
+    Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity };
+    Log.Debug("I have created a city ({@city}), containing a house ({@house}), inside a simulation. ({@sim})", rootCity, testHouse, sim);
+    db.SimulatedUnits.Add(rootCity);
+    db.SimulatedUnits.Add(testHouse);
+    db.Simulations.Add(sim);
+    db.SaveChanges();
+    Log.Debug("Saved city, house and sim to database.");
+    Log.Information("The simulation has the id {id}", sim.Id);
+    return sim.Id;
 }
 
 RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
