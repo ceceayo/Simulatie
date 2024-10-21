@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Simulatie.UnitTypes;
 
 namespace Simulatie
@@ -95,6 +96,13 @@ namespace Simulatie
                 loaded_unit.Id = unit.Id;
                 loaded_unit.Type = unit.TypeNum;
                 db.SaveChanges();
+                db.UnitArguments.Where(b => b.Owner == db.SimulatedUnits.Find(unit.Id)).ExecuteDelete();
+                foreach (var I in unit.Arguments)
+                {
+                    var x = new UnitArgument { Owner = db.SimulatedUnits.Find(unit.Id), Type = I.Key, Value = I.Value };
+                    db.UnitArguments.Add(x);
+                    db.SaveChanges();
+                }
             }
         }
     }
