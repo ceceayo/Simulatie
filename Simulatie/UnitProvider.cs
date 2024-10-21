@@ -86,5 +86,16 @@ namespace Simulatie
             Log.Debug("GetArgsByUnit will send {@list}", list);
             return list;
         }
+
+        public void SaveUnit(IUnitType unit, SimulationDatabaseContext db)
+        {
+            SimulatedUnit? loaded_unit = db.SimulatedUnits.First(b => b.Id == unit.Id);
+            Log.Debug("Loaded a unit from the db. Value is {@loaded}", loaded_unit);
+            if (loaded_unit != null) { 
+                loaded_unit.Id = unit.Id;
+                loaded_unit.Type = unit.TypeNum;
+                db.SaveChanges();
+            }
+        }
     }
 }
