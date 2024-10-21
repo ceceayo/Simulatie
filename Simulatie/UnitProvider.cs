@@ -92,17 +92,24 @@ namespace Simulatie
         {
             SimulatedUnit? loaded_unit = db.SimulatedUnits.First(b => b.Id == unit.Id);
             Log.Debug("Loaded a unit from the db. Value is {@loaded}", loaded_unit);
-            if (loaded_unit != null) { 
+            if (loaded_unit != null) {
+                Log.Debug("Unit is not null.");
                 loaded_unit.Id = unit.Id;
                 loaded_unit.Type = unit.TypeNum;
+                Log.Debug("New loaded_unit is {@loaded}", loaded_unit);
                 db.SaveChanges();
+                Log.Debug("Saving changes");
                 db.UnitArguments.Where(b => b.Owner == db.SimulatedUnits.Find(unit.Id)).ExecuteDelete();
+                Log.Debug("Deleted old arguments. Now adding new arguments.");
                 foreach (var I in unit.Arguments)
                 {
                     var x = new UnitArgument { Owner = db.SimulatedUnits.Find(unit.Id), Type = I.Key, Value = I.Value };
+                    Log.Debug("Iterating over unit's arguments. {@I}, {@x}", I, x);
                     db.UnitArguments.Add(x);
                     db.SaveChanges();
+                    Log.Debug("Saving changes.");
                 }
+                Log.Debug("Finished saving unit {@unit}.", unit);
             }
         }
     }
