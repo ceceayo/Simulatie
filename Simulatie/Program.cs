@@ -73,9 +73,9 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     foreach (var child in children)
     {
         // TODO: rename
-        RunSimulationRecursiveResult john = RunSimulationRecursive(child);
-        TotalPowerUsed += john.ResourcesUsed;
-        foreach (var NewUnit in john.NewUnits)
+        RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child);
+        TotalPowerUsed += ResultOfChild.ResourcesUsed;
+        foreach (var NewUnit in ResultOfChild.NewUnits)
         {
             new_units.Add(NewUnit);
         }
@@ -92,6 +92,12 @@ int RunSimulationAt(IUnitType start)
     Log.Information("Running simulation at {@start}", start);
     RunSimulationRecursiveResult result = RunSimulationRecursive(start);
     Log.Information("Recursive simulation has ended with {power} watt.", result.ResourcesUsed);
+    Log.Debug("Saving new units from database.");
+    foreach (var unit in result.NewUnits)
+    {
+        Log.Debug("Saving unit {@unit}", unit);
+        up.SaveUnit(unit, db);
+    }
     return 0;
 }
 
