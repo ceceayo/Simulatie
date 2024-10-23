@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Simulatie.StatTypes;
 using Simulatie.UnitTypes;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Simulatie
     {
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
-            // empty (for now owo )
+            {1, typeof(SimpleNumber)}
         };
         public StatProvider()
         {

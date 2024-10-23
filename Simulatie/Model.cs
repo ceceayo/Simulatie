@@ -70,6 +70,7 @@ namespace Simulatie
     {
         public int Id { set; get; }
         public int Type { set; get; }
+        public int Role { set; get; }
         public string Value { set; get; }
         public Simulation Owner { set; get; }
     }
