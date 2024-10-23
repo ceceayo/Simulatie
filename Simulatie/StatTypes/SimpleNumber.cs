@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
+using Serilog.Debugging;
 
 namespace Simulatie.StatTypes
 {
@@ -10,7 +12,7 @@ namespace Simulatie.StatTypes
     {
         public int TypeNum { get; } = 1;
         public int Id { get; }
-        public string Value { get; }
+        public string Value { get; set; }
         public int Role { get; }
         public SimpleNumber(int id, SimulationDatabaseContext db)
         {
@@ -22,7 +24,23 @@ namespace Simulatie.StatTypes
         }
         public void AskForValueInput(SimulationDatabaseContext db)
         {
-            // empty (for now >w<)
+            Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
+            int value;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if(int.TryParse(input, out value))
+                {
+                    break;
+                } else
+                {
+                    Log.Error("Please enter a valid number. Can NOT parse '{input}' as int. Try again!", input);
+                }
+            }
+            var me_in_db = db.Statistics.Find(Id);
+            me_in_db.Value = value.ToString();
+            Value = value.ToString();
+            db.SaveChanges();
         } 
     }
 }
