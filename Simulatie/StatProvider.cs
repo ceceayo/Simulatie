@@ -12,7 +12,7 @@ namespace Simulatie
     {
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
-            // empty (for now >w< )
+            // empty (for now owo )
         };
         public StatProvider()
         {
