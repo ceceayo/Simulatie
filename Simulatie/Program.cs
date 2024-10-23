@@ -72,7 +72,6 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     Log.Information("Children of {Id} are {@children}", unit.Id, children);
     foreach (var child in children)
     {
-        // TODO: rename
         RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child);
         TotalPowerUsed += ResultOfChild.ResourcesUsed;
         foreach (var NewUnit in ResultOfChild.NewUnits)
