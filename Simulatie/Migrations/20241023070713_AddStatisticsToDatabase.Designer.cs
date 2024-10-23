@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Simulatie;
 
@@ -10,9 +11,11 @@ using Simulatie;
 namespace Simulatie.Migrations
 {
     [DbContext(typeof(SimulationDatabaseContext))]
-    partial class SimulationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241023070713_AddStatisticsToDatabase")]
+    partial class AddStatisticsToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");

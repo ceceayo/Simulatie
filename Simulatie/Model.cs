@@ -13,6 +13,7 @@ namespace Simulatie
         public DbSet<SimulatedUnit> SimulatedUnits { get; set; }
         public DbSet<UnitArgument> UnitArguments { get; set; }
         public DbSet<Simulation> Simulations { get; set; }
+        public DbSet<Stats> Statistics { get; set; }
 
         public string DbPath { get; }
 
@@ -64,5 +65,12 @@ namespace Simulatie
         public int Id { set; get; }
         public SimulatedUnit Unit { set; get; }
         public int TotalResourcesUsed { set; get; }
+    }
+    public class Stats
+    {
+        public int Id { set; get; }
+        public int Type { set; get; }
+        public string Value { set; get; }
+        public Simulation Owner { set; get; }
     }
 }
