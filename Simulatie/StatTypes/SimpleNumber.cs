@@ -11,11 +11,13 @@ namespace Simulatie.StatTypes
         public int TypeNum { get; } = 1;
         public int Id { get; }
         public string Value { get; }
+        public int Role { get; }
         public SimpleNumber(int id, SimulationDatabaseContext db)
         {
             Id = id;
             var me_in_db = db.Statistics.Find(Id);
             Value = me_in_db.Value;
+            Role = me_in_db.Role;
             
         }
         public void AskForValueInput(SimulationDatabaseContext db)

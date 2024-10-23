@@ -10,6 +10,7 @@ namespace Simulatie
     {
         public int TypeNum { get; }
         public int Id { get; }
+        public int Role { get; }
         public string Value { get; }
         public void AskForValueInput(SimulationDatabaseContext db);
     }
