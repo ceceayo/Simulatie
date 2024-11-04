@@ -11,7 +11,7 @@
             this.Id = id;
         }
 
-        public UnitTickResponse? OnTick(SimulationDatabaseContext db)
+        public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up)
         {
             return new UnitTickResponse
             {
