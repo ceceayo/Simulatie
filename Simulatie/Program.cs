@@ -2,6 +2,8 @@
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -122,8 +124,9 @@ else if (input == 'r')
     if (inputLine != null)
     {
         var startId = int.Parse(inputLine);
-        var sim = db.Simulations.Find(startId);
-        var instance = up.GetInstance(sim.Unit.Id, db);
+        var sim = db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
+        Log.Debug("THIS {@sim}", sim);
+        var instance = up.GetInstance(1, db);
         if (instance != null)
         {
             Log.Information("running simulation on {@instance}", instance);
