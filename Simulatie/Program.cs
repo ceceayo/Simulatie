@@ -56,7 +56,8 @@ int CreateSimulation()
     db.SaveChanges();
     Log.Debug("Saved city, house and sim to database.");
     Log.Information("The simulation has the id {id}", sim.Id);
-
+    Log.Debug("Doing the thing with the stats :p");
+    sp.FindInstance(db, 1, 1, sim);
     return sim.Id;
 }
 

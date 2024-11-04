@@ -47,11 +47,25 @@ namespace Simulatie
                 var i = this.GetType(type);
                 if (i != null)
                 {
-                    var x = Activator.CreateInstance(i, new object[] { -1, db }) as IStatType;
+                    var z = new Stats { Role = role, Type = type, Value = "A TEMPORARY VALUE", Owner = sim };
+                    db.Statistics.Add(z);
+                    db.SaveChanges();
+                    var x = Activator.CreateInstance(i, new object[] { z.Id, db }) as IStatType;
                     Log.Debug("Created DB item for stat with {role} of {type}: {x}", role, type, x);
                     Log.Information("Please, enter a value for stat with role {role} of type {type}.", role, type);
                     x.AskForValueInput(db);
-                    db.Statistics.Add(new Stats { Role = role, Type = type, Value = x.Value, Owner = sim });
+                    db.Statistics.Find(z.Id).Value = x.Value;
+                    var stat = db.Statistics.Find(z.Id);
+                    if (stat != null)
+                    {
+                        stat.Value = x.Value;
+                    }
+                    else
+                    {
+                        Log.Fatal("Could not find stat with id {id}", z.Id);
+                        throw new Exception("Could not find stat with id");
+                    }
+                    db.SaveChanges();
                     return x;
                 }
             }
