@@ -122,11 +122,12 @@ else if (input == 'r')
     if (inputLine != null)
     {
         var startId = int.Parse(inputLine);
-        var instance = up.GetInstance(startId, db);
+        var sim = db.Simulations.Find(startId);
+        var instance = up.GetInstance(sim.Unit.Id, db);
         if (instance != null)
         {
             Log.Information("running simulation on {@instance}", instance);
-            var res = RunSimulationAt(instance);
+            var res = RunSimulationAt(instance, sim);
             log.Information("RunSimulationAt returned {res}", res);
         }
         else
