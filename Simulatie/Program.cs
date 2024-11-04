@@ -90,7 +90,7 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     };
 }
 
-int RunSimulationAt(IUnitType start)
+int RunSimulationAt(IUnitType start, Simulation sim)
 {
     Log.Information("Running simulation at {@start}", start);
     RunSimulationRecursiveResult result = RunSimulationRecursive(start);
@@ -101,6 +101,8 @@ int RunSimulationAt(IUnitType start)
         Log.Debug("Saving unit {@unit}", unit);
         up.SaveUnit(unit, db);
     }
+    sim.TotalResourcesUsed = sim.TotalResourcesUsed + result.ResourcesUsed;
+    db.SaveChanges();
     return 0;
 }
 
