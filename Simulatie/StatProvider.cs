@@ -63,7 +63,7 @@ namespace Simulatie
                 Log.Fatal("Found multiple stats with role {role} of type {type}.", role, type);
                 throw new Exception("Found multiple stats with role and type");
             }
-            Log.Fatal("Could not find or create stat")
+            Log.Fatal("Could not find or create stat");
             throw new Exception("Could not find or create stat");
         }
     }
