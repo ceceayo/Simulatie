@@ -51,6 +51,7 @@ namespace Simulatie
                     Log.Debug("Created DB item for stat with {role} of {type}: {x}", role, type, x);
                     Log.Information("Please, enter a value for stat with role {role} of type {type}.", role, type);
                     x.AskForValueInput(db);
+                    db.Statistics.Add(new Stats { Role = role, Type = type, Value = x.Value, Owner = sim });
                     return x;
                 }
             }
