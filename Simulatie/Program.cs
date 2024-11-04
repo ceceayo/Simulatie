@@ -29,25 +29,6 @@ var sp = /*new SocialistischePartij();*/ new StatProvider();
 int CreateSimulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
-    /*
-    var x = new SimulatedUnit { Type = 1, Owner = null };
-    Log.Debug("Created a new simulated unit {@x}", x);
-    db.SimulatedUnits.Add(x);
-    db.SaveChanges();
-    var id = x.Id;
-    Log.Information("Added unit to db with Id {id}", id);
-    Log.Information("Make a new House");
-    var y = new SimulatedUnit { Type = 2, Owner = db.SimulatedUnits.Find(id) };
-    Log.Information("Created a new simulated unit {@y}", y);
-    db.SimulatedUnits.Add(y);
-    db.SaveChanges();
-    var z = new UnitArgument { Type = 1, Owner = y, Value = "Mussolini is fantastisch" };
-    db.UnitArguments.Add(z);
-    db.SaveChanges();
-    id = y.Id;
-    Log.Information("Added unit to db, with id {id}", id);
-    return x.Id;
-    */
     SimulatedUnit rootCity = new SimulatedUnit { Type = 1, Owner = null };
     SimulatedUnit testHouse = new SimulatedUnit { Type = 2, Owner = rootCity };
     Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity };
@@ -59,7 +40,7 @@ int CreateSimulation()
     Log.Debug("Saved city, house and sim to database.");
     Log.Information("The simulation has the id {id}", sim.Id);
     Log.Debug("Doing the thing with the stats :p");
-    sp.FindInstance(db, 1, 1, sim);
+    sp.FindInstance(db, 1, 1, sim, "this is a testing number.");
     return sim.Id;
 }
 
@@ -70,7 +51,7 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     List<IUnitType> new_units = new List<IUnitType>();
     var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
     Log.Debug("Database has object {@obj} stored.", q);
-    var result = unit.OnTick(db, sp, up);
+    var result = unit.OnTick(db);
     TotalPowerUsed += result.ResourcesUsed;
     new_units.Add(result.NewUnit);
     Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);

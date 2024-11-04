@@ -39,7 +39,7 @@ namespace Simulatie
             }
             return null;
         }
-        public IStatType FindInstance(SimulationDatabaseContext db, int role, int type, Simulation sim)
+        public IStatType FindInstance(SimulationDatabaseContext db, int role, int type, Simulation sim, string message)
         {
             var o = db.Statistics.Where(x => x.Role == role && x.Type == type && x.Owner == sim).ToList();
             if (o.Count == 0)
@@ -53,6 +53,7 @@ namespace Simulatie
                     var x = Activator.CreateInstance(i, new object[] { z.Id, db }) as IStatType;
                     Log.Debug("Created DB item for stat with {role} of {type}: {x}", role, type, x);
                     Log.Information("Please, enter a value for stat with role {role} of type {type}.", role, type);
+                    Log.Information("Message: {msg}", message);
                     x.AskForValueInput(db);
                     db.Statistics.Find(z.Id).Value = x.Value;
                     var stat = db.Statistics.Find(z.Id);
