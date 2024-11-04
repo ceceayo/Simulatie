@@ -1,6 +1,7 @@
 ﻿using Simulatie;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using System.ComponentModel.DataAnnotations;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -21,6 +22,7 @@ Log.Information("Created a database {db}", db);
 Log.Information("Database path is {DbPath}.", db.DbPath);
 
 var up = new UnitProvider();
+var sp = /*new SocialistischePartij();*/ new StatProvider();
 
 int CreateSimulation()
 {
@@ -54,6 +56,7 @@ int CreateSimulation()
     db.SaveChanges();
     Log.Debug("Saved city, house and sim to database.");
     Log.Information("The simulation has the id {id}", sim.Id);
+
     return sim.Id;
 }
 
