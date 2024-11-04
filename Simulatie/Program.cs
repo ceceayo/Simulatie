@@ -103,8 +103,17 @@ int RunSimulationAt(IUnitType start, Simulation sim)
         Log.Debug("Saving unit {@unit}", unit);
         up.SaveUnit(unit, db);
     }
-    sim.TotalResourcesUsed = sim.TotalResourcesUsed + result.ResourcesUsed;
-    db.SaveChanges();
+    var x = db.Simulations.Find(sim.Id);
+    if (x == null)
+    {
+        Log.Fatal("Could not find simulation with id {id}", sim.Id);
+        throw new Exception("Could not find simulation with id");
+    }
+    else
+    {
+        x.TotalResourcesUsed += result.ResourcesUsed;
+        db.SaveChanges();
+    }
     return 0;
 }
 
