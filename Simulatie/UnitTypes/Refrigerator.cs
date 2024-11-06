@@ -13,7 +13,7 @@
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            var statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by lamps");
+            var statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by refrigerators");
             return new UnitTickResponse
             {
                 NewUnit = new Refrigerator(args: this.Arguments, id: this.Id),
