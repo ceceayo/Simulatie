@@ -51,7 +51,7 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     List<IUnitType> new_units = new List<IUnitType>();
     var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
     Log.Debug("Database has object {@obj} stored.", q);
-    var result = unit.OnTick(db);
+    var result = unit.OnTick(db,sp,up);
     TotalPowerUsed += result.ResourcesUsed;
     new_units.Add(result.NewUnit);
     Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
