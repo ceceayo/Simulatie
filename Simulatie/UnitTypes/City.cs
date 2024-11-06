@@ -8,18 +8,20 @@ namespace Simulatie.UnitTypes
         public int TypeNum { get; } = 1;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; }
-
-        public City(int id, Dictionary<int, string> args)
+        public IUnitType? Owner { get; set; }
+        public City(int id, Dictionary<int, string> args, IUnitType? owner)
         {
             this.Id = id;
             this.Arguments = args;
+            Owner = owner;
+            Log.Debug("Create IUnitType instance of type City with value {val}.", this);
         }
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
             return new UnitTickResponse
             {
-                NewUnit = new City(args: this.Arguments, id: this.Id),
+                NewUnit = new City(args: this.Arguments, id: this.Id, owner: Owner),
                 ResourcesUsed = 0
             };
         }
@@ -34,7 +36,7 @@ namespace Simulatie.UnitTypes
             List<IUnitType> child_creations = new List<IUnitType>();
             for (int i = 0; i < total_houses_to_make.GetNumber(); i++)
             {
-                House house = new House(args: new Dictionary<int, string>(), id: 0);
+                House house = new House(args: new Dictionary<int, string>(), id: 0, owner: Owner);
                 
                 List<IUnitType> children = house.OnCreate(db, sp, up, sim);
                 child_creations.Add(house);

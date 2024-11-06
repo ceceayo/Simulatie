@@ -36,7 +36,15 @@ namespace Simulatie
             if (Types.ContainsKey(o.Type))
             {
                 var t = Types[o.Type];
-                var i = Activator.CreateInstance(t, [id, GetArgsByUnit(o, db)]) as IUnitType;
+                IUnitType? parent = null;
+                SimulatedUnit? owner = db.SimulatedUnits.Include(b => b.Owner).Single(b => b.Id == id);
+                if (owner.Owner == null) { }
+                else
+                {
+                    parent = GetInstance(owner.Owner.Id, db);
+                }
+                var i = Activator.CreateInstance(t, [id, GetArgsByUnit(o, db), parent]) as IUnitType;
+                Log.Debug("GetInstance will return {@i}", i);
                 return i;
             }
             return null;

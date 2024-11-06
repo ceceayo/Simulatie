@@ -1,14 +1,19 @@
-﻿namespace Simulatie.UnitTypes
+﻿using Serilog;
+
+namespace Simulatie.UnitTypes
 {
     public class Freezer : IUnitType
     {
         public int TypeNum { get; } = 4;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
-
-        public Freezer(int id, Dictionary<int, string> args)
+        public IUnitType? Owner { get; set; }
+        public Freezer(int id, Dictionary<int, string> args, IUnitType? owner)
         {
             this.Id = id;
+            this.Arguments = args;
+            Owner = owner;
+            Log.Debug("Create IUnitType instance of type Freezer with value {val}.", this);
         }
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
@@ -16,7 +21,7 @@
             var statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by freezer(s)");
             return new UnitTickResponse
             {
-                NewUnit = new Freezer(args: this.Arguments, id: this.Id),
+                NewUnit = new Freezer(args: this.Arguments, id: this.Id, owner: Owner),
                 ResourcesUsed = statInstance != null ? statInstance.Id : 0 // Assuming IStatType has an Id property
             };
         }
