@@ -20,5 +20,9 @@
                 ResourcesUsed = 0
             };
         }
+        public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
+        {
+            return new List<IUnitType> { };
+        }
     }
 }
