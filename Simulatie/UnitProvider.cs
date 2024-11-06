@@ -72,7 +72,9 @@ namespace Simulatie
         }
         public List<IUnitType> GetAllOwnedBy(IUnitType owner, SimulationDatabaseContext db)
         {
-            var x = db.SimulatedUnits.Where(b => b.Owner == db.SimulatedUnits.Find(owner.Id)).ToList();
+            Log.Debug("Owner is {@owner}", owner);
+            var x = db.SimulatedUnits.Include(b => b.Owner).Where(b => b.Owner.Equals(db.SimulatedUnits.Find(owner.Id))).ToList();
+            //var x = db.SimulatedUnits.Include(b => b.Owner).Where(b => b.Owner == db.SimulatedUnits.Find(owner.Id)).ToList();
             List<IUnitType> y = new List<IUnitType>();
             Log.Debug("x is {@x}", x);
             foreach (var z in x)

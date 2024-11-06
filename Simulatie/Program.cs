@@ -4,6 +4,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -30,17 +31,18 @@ int CreateSimulation()
 {
     Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
     SimulatedUnit rootCity = new SimulatedUnit { Type = 1, Owner = null };
-    SimulatedUnit testHouse = new SimulatedUnit { Type = 2, Owner = rootCity };
-    Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity };
-    Log.Debug("I have created a city ({@city}), containing a house ({@house}), inside a simulation. ({@sim})", rootCity, testHouse, sim);
     db.SimulatedUnits.Add(rootCity);
-    db.SimulatedUnits.Add(testHouse);
+    db.SaveChanges();
+    Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity };
     db.Simulations.Add(sim);
     db.SaveChanges();
-    Log.Debug("Saved city, house and sim to database.");
-    Log.Information("The simulation has the id {id}", sim.Id);
-    Log.Debug("Doing the thing with the stats :p");
-    sp.FindInstance(db, 1, 1, sim, "this is a testing number.");
+    Log.Information("I have created a city ({@city}) and a simulation ({@sim}).", rootCity, sim);
+    List<IUnitType> children = up.GetInstance(rootCity.Id, db).OnCreate(db, sp, up, sim);
+    foreach (var child in children)
+    {
+        Log.Debug("Saving child {@child}", child);
+        up.MakeInstance(child, db, child.Owner);
+    }
     return sim.Id;
 }
 
@@ -116,7 +118,7 @@ else if (input == 'r')
         var startId = int.Parse(inputLine);
         var sim = db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
         Log.Debug("THIS {@sim}", sim);
-        var instance = up.GetInstance(1, db);
+        var instance = up.GetInstance(sim.Unit.Id, db);
         if (instance != null)
         {
             Log.Information("running simulation on {@instance}", instance);
