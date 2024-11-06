@@ -10,7 +10,8 @@ namespace Simulatie
         {
             { 1, typeof(City) },
             { 2, typeof(House) },
-            { 3, typeof(Lamp) }
+            { 3, typeof(Lamp) },
+            { 4, typeof(Freezer) }
         };
 
         public UnitProvider()
