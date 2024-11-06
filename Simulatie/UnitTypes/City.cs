@@ -12,7 +12,7 @@
             this.Arguments = args;
         }
 
-        public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up)
+        public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
             return new UnitTickResponse
             {

@@ -9,7 +9,8 @@ namespace Simulatie
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
             { 1, typeof(City) },
-            { 2, typeof(House) }
+            { 2, typeof(House) },
+            { 3, typeof(Lamp) }
         };
 
         public UnitProvider()

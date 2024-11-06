@@ -44,14 +44,14 @@ int CreateSimulation()
     return sim.Id;
 }
 
-RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
+RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit, Simulation sim)
 {
     Log.Information("Calling RunSimulationRecursive on unit {@unit}", unit);
     int TotalPowerUsed = 0;
     List<IUnitType> new_units = new List<IUnitType>();
     var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
     Log.Debug("Database has object {@obj} stored.", q);
-    var result = unit.OnTick(db,sp,up);
+    var result = unit.OnTick(db,sp,up,sim);
     TotalPowerUsed += result.ResourcesUsed;
     new_units.Add(result.NewUnit);
     Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
@@ -59,7 +59,7 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
     Log.Information("Children of {Id} are {@children}", unit.Id, children);
     foreach (var child in children)
     {
-        RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child);
+        RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child, sim);
         TotalPowerUsed += ResultOfChild.ResourcesUsed;
         foreach (var NewUnit in ResultOfChild.NewUnits)
         {
@@ -76,7 +76,7 @@ RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit)
 int RunSimulationAt(IUnitType start, Simulation sim)
 {
     Log.Information("Running simulation at {@start}", start);
-    RunSimulationRecursiveResult result = RunSimulationRecursive(start);
+    RunSimulationRecursiveResult result = RunSimulationRecursive(start, sim);
     Log.Information("Recursive simulation has ended with {power} watt.", result.ResourcesUsed);
     Log.Debug("Saving new units from database.");
     foreach (var unit in result.NewUnits)
