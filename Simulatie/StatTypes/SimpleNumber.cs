@@ -42,5 +42,9 @@ namespace Simulatie.StatTypes
             Value = value.ToString();
             db.SaveChanges();
         } 
+        public int GetNumber()
+        {
+            return int.Parse(Value);
+        }
     }
 }
