@@ -20,5 +20,9 @@
                 ResourcesUsed = statInstance != null ? statInstance.Id : 0 // Assuming IStatType has an Id property
             };
         }
+        public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
+        {
+            return new List<IUnitType> { };
+        }
     }
 }
