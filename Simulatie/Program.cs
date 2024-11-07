@@ -2,6 +2,7 @@
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Reflection.Emit;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
@@ -37,7 +38,7 @@ int CreateSimulation()
     db.Simulations.Add(sim);
     db.SaveChanges();
     Log.Information("I have created a city ({@city}) and a simulation ({@sim}).", rootCity, sim);
-    List<IUnitType> children = up.GetInstance(rootCity.Id, db).OnCreate(db, sp, up, sim);
+    List<IUnitType> children = up.GetInstance(rootCity.Id, db)!.OnCreate(db, sp, up, sim);
     foreach (var child in children)
     {
         Log.Debug("Saving child {@child}", child);
@@ -49,29 +50,30 @@ int CreateSimulation()
 RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit, Simulation sim)
 {
     Log.Information("Calling RunSimulationRecursive on unit {@unit}", unit);
-    int TotalPowerUsed = 0;
-    List<IUnitType> new_units = new List<IUnitType>();
-    var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
+    int totalPowerUsed = 0;
+    List<IUnitType> newUnits = new List<IUnitType>();
+    var q = db.SimulatedUnits.First(b => b.Id == unit.Id);
     Log.Debug("Database has object {@obj} stored.", q);
     var result = unit.OnTick(db,sp,up,sim);
-    TotalPowerUsed += result.ResourcesUsed;
-    new_units.Add(result.NewUnit);
+    Debug.Assert(result != null, nameof(result) + " != null");
+    totalPowerUsed += result.ResourcesUsed;
+    newUnits.Add(result.NewUnit);
     Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
     var children = up.GetAllOwnedBy(unit, db);
     Log.Information("Children of {Id} are {@children}", unit.Id, children);
     foreach (var child in children)
     {
-        RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child, sim);
-        TotalPowerUsed += ResultOfChild.ResourcesUsed;
-        foreach (var NewUnit in ResultOfChild.NewUnits)
+        RunSimulationRecursiveResult resultOfChild = RunSimulationRecursive(child, sim);
+        totalPowerUsed += resultOfChild.ResourcesUsed;
+        foreach (var newUnit in resultOfChild.NewUnits)
         {
-            new_units.Add(NewUnit);
+            newUnits.Add(newUnit);
         }
     }
     return new RunSimulationRecursiveResult
     {
-        NewUnits = new_units,
-        ResourcesUsed = TotalPowerUsed
+        NewUnits = newUnits,
+        ResourcesUsed = totalPowerUsed
     };
 }
 
