@@ -92,12 +92,9 @@ int RunSimulationAt(IUnitType start, Simulation sim)
         Log.Fatal("Could not find simulation with id {id}", sim.Id);
         throw new Exception("Could not find simulation with id");
     }
-    else
-    {
-        x.TotalResourcesUsed += result.ResourcesUsed;
-        db.SaveChanges();
-    }
-    return 0;
+    x.TotalResourcesUsed += result.ResourcesUsed;
+    db.SaveChanges();
+    return result.ResourcesUsed;
 }
 
 Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim., [t]est.");
