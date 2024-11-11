@@ -51,23 +51,23 @@ namespace Simulatie
         }
         public int MakeInstance(IUnitType unit, SimulationDatabaseContext db, IUnitType? owner)
         {
-            Log.Information("Making instance in db of {@unit}, owned by {@owner}", unit, owner);
+            Log.Debug("Making instance in db of {@unit}, owned by {@owner}", unit, owner);
             SimulatedUnit x;
             if (owner == null)
             {
-                Log.Information("Owner is null");
+                Log.Debug("Owner is null");
                 x = new SimulatedUnit { Type = unit.TypeNum, Owner = null };
             }
             else
             {
-                Log.Information("Owner is not null");
+                Log.Debug("Owner is not null");
                 x = new SimulatedUnit { Type = unit.TypeNum, Owner = db.SimulatedUnits.Find(owner.Id) };
             }
             db.SimulatedUnits.Add(x);
-            Log.Information("Added unit to db");
+            Log.Debug("Added unit to db");
             db.SaveChanges();
-            Log.Information("Saved changes");
-            Log.Information("Id of new unit is {id}", x.Id);
+            Log.Debug("Saved changes");
+            Log.Debug("Id of new unit is {id}", x.Id);
             return x.Id;
         }
         public List<IUnitType> GetAllOwnedBy(IUnitType owner, SimulationDatabaseContext db)
