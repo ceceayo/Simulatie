@@ -65,6 +65,9 @@ namespace Simulatie
         public int Id { set; get; }
         public SimulatedUnit Unit { set; get; }
         public int TotalResourcesUsed { set; get; }
+        public Int16 Hour { set; get; }
+        public Int32 Day { set; get; }
+        public int Year { set; get; }
     }
     public class Stats
     {
