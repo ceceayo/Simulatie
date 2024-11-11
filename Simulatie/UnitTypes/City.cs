@@ -37,10 +37,7 @@ namespace Simulatie.UnitTypes
             for (int i = 0; i < total_houses_to_make.GetNumber(); i++)
             {
                 House house = new House(args: new Dictionary<int, string>(), id: 0, owner: this);
-                
-                List<IUnitType> children = house.OnCreate(db, sp, up, sim);
                 child_creations.Add(house);
-                child_creations.AddRange(children);
 
             }
             return child_creations;

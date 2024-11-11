@@ -37,11 +37,32 @@ int CreateSimulation()
     db.Simulations.Add(sim);
     db.SaveChanges();
     Log.Information("I have created a city ({@city}) and a simulation ({@sim}).", rootCity, sim);
-    List<IUnitType> children = up.GetInstance(rootCity.Id, db).OnCreate(db, sp, up, sim);
+    List<IUnitType> children = up.GetInstance(rootCity.Id, db)!.OnCreate(db, sp, up, sim);
+    Queue<CreateSimulationItem> items = new Queue<CreateSimulationItem>();
     foreach (var child in children)
     {
         Log.Debug("Saving child {@child}", child);
-        up.MakeInstance(child, db, child.Owner);
+        int NewUnitId = up.MakeInstance(child, db, child.Owner);
+        Log.Debug("Child got Id {Id}", NewUnitId);
+        IUnitType newUnit = up.GetInstance(NewUnitId, db)!;
+        List<IUnitType> newChildren = newUnit.OnCreate(db, sp, up, sim);
+        foreach (var newChild in newChildren)
+        {
+            items.Enqueue(new CreateSimulationItem ( Unit: newChild, OwnerId: newUnit.Id ));
+        }
+    }
+    while (items.Count > 0)
+    {
+        CreateSimulationItem item = items.Dequeue();
+        Log.Debug("Saving item {@item}", item);
+        int NewUnitId = up.MakeInstance(item.Unit, db, up.GetInstance(item.OwnerId, db));
+        Log.Debug("Item got Id {Id}", NewUnitId);
+        IUnitType newUnit = up.GetInstance(NewUnitId, db)!;
+        List<IUnitType> newChildren = newUnit.OnCreate(db, sp, up, sim);
+        foreach (var newChild in newChildren)
+        {
+            items.Enqueue(new CreateSimulationItem(Unit: newChild, OwnerId: newUnit.Id));
+        }
     }
     return sim.Id;
 }

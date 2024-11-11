@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
 {
@@ -27,7 +28,20 @@ namespace Simulatie.UnitTypes
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            return new List<IUnitType> { };
+            SimpleNumber? lamps_to_make = sp.FindInstance(db, 4, 1, sim, "Total lamps in house") as SimpleNumber;
+            if (lamps_to_make == null)
+            {
+                Log.Fatal("Total lamps to make per house was not found.");
+                throw new InvalidOperationException("Total lamps to make per house was not found.");
+            }
+            List<IUnitType> child_creations = new List<IUnitType>();
+            for (int i = 0; i < lamps_to_make.GetNumber(); i++)
+            {
+                Lamp lamp = new Lamp(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(lamp);
+
+            }
+            return child_creations;
         }
     }
 }
