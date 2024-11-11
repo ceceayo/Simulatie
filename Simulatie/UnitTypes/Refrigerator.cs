@@ -22,7 +22,7 @@ namespace Simulatie.UnitTypes
             return new UnitTickResponse
             {
                 NewUnit = new Refrigerator(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = statInstance != null ? statInstance.Id : 0 // Assuming IStatType has an Id property
+                ResourcesUsed = statInstance != null ? statInstance.Id : 700 // Assuming IStatType has an Id property
             };
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)

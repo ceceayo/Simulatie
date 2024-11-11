@@ -37,10 +37,19 @@ namespace Simulatie.UnitTypes
             for (int i = 0; i < total_houses_to_make.GetNumber(); i++)
             {
                 House house = new House(args: new Dictionary<int, string>(), id: 0, owner: this);
-                
-                List<IUnitType> children = house.OnCreate(db, sp, up, sim);
                 child_creations.Add(house);
-                child_creations.AddRange(children);
+
+            }
+            SimpleNumber? total_schools_to_make = sp.FindInstance(db, 5, 1, sim, "Total schools to make") as SimpleNumber;
+            if (total_schools_to_make == null)
+            {
+                Log.Fatal("Total schools to make was not found.");
+                throw new InvalidOperationException("Total schools to make not found.");
+            }
+            for (int i = 0; i < total_schools_to_make.GetNumber(); i++)
+            {
+                School school = new School(args: new Dictionary<int, string>(), id: 0, owner: this);
+                child_creations.Add(school);
 
             }
             return child_creations;

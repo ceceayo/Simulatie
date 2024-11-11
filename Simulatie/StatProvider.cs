@@ -54,6 +54,7 @@ namespace Simulatie
                     Log.Debug("Created DB item for stat with {role} of {type}: {x}", role, type, x);
                     Log.Information("Please, enter a value for stat with role {role} of type {type}.", role, type);
                     Log.Information("Message: {msg}", message);
+                    Console.WriteLine("Please, enter a value for stat with role {0} of type {1}. The supplied message is {2}", role, type, message);
                     x.AskForValueInput(db);
                     db.Statistics.Find(z.Id).Value = x.Value;
                     var stat = db.Statistics.Find(z.Id);
