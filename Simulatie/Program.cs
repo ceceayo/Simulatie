@@ -12,7 +12,7 @@ var logPath = Path.Join(path, "simulatie.log");
 
 using var log = new LoggerConfiguration()
     .MinimumLevel.Information()
-    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+    //.WriteTo.Console(theme: AnsiConsoleTheme.Code)
     .WriteTo.Debug()
     .WriteTo.File(logPath)
     .CreateLogger();
