@@ -11,7 +11,7 @@ var path = Environment.GetFolderPath(folder);
 var logPath = Path.Join(path, "simulatie.log");
 
 using var log = new LoggerConfiguration()
-    .MinimumLevel.Debug()
+    .MinimumLevel.Information()
     .WriteTo.Console(theme: AnsiConsoleTheme.Code)
     .WriteTo.Debug()
     .WriteTo.File(logPath)
@@ -118,7 +118,7 @@ int RunSimulationAt(IUnitType start, Simulation sim)
         x.TotalResourcesUsed += result.ResourcesUsed;
         db.SaveChanges();
     }
-    return 0;
+    return result.ResourcesUsed;
 }
 
 Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim., [t]est.");

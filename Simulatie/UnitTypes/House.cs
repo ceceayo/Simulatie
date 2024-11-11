@@ -23,7 +23,7 @@ namespace Simulatie.UnitTypes
             return new UnitTickResponse
             {
                 NewUnit = new House(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = 4
+                ResourcesUsed = 0
             };
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
