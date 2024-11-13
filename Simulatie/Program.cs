@@ -33,7 +33,7 @@ int CreateSimulation()
     SimulatedUnit rootCity = new SimulatedUnit { Type = 1, Owner = null };
     db.SimulatedUnits.Add(rootCity);
     db.SaveChanges();
-    Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity };
+    Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity, Year = 2000, Day = 0, Hour = 11 };
     db.Simulations.Add(sim);
     db.SaveChanges();
     Log.Information("I have created a city ({@city}) and a simulation ({@sim}).", rootCity, sim);
