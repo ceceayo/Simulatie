@@ -101,6 +101,24 @@ int RunSimulationAt(IUnitType start, Simulation sim)
     Log.Information("Running simulation at {@start}", start);
     RunSimulationRecursiveResult result = RunSimulationRecursive(start, sim);
     Log.Information("Recursive simulation has ended with {power} watt.", result.ResourcesUsed);
+    if (sim.Hour == 23)
+    {
+        sim.Hour = 0;
+        if (sim.Day == 364)
+        {
+            sim.Day = 0;
+            sim.Year = sim.Year + 1;
+        }
+        else
+        {
+            sim.Day += 1;
+        }
+    }
+    else
+    {
+        sim.Hour += 1;
+    }
+    db.SaveChanges();
     Log.Debug("Saving new units from database.");
     foreach (var unit in result.NewUnits)
     {
