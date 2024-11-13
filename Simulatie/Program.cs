@@ -139,7 +139,7 @@ int RunSimulationAt(IUnitType start, Simulation sim)
     return result.ResourcesUsed;
 }
 
-Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim., [t]est.");
+Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un sim., [l]oop.");
 char input = Console.ReadKey().KeyChar;
 Console.WriteLine();
 
@@ -174,9 +174,34 @@ else if (input == 'r')
         Log.Error("No input received for simulation start id {inputLine}.", inputLine);
     }
 }
-else if (input == 't')
+else if (input == 'l')
 {
-    up.GetArgsByUnit(db.SimulatedUnits.Where(b => b.Id == 5).First(), db);
+    Log.Information("Please type the number of the id to start simulating.");
+    var inputLine = Console.ReadLine();
+    if (inputLine != null)
+    {
+        var startId = int.Parse(inputLine);
+        var sim = db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
+        Log.Debug("THIS {@sim}", sim);
+        var instance = up.GetInstance(sim.Unit.Id, db);
+        if (instance != null)
+        {
+            while (Console.ReadLine() != "q")
+            {
+                Log.Information("running simulation on {@instance}", instance);
+                var res = RunSimulationAt(instance, sim);
+                log.Information("RunSimulationAt returned {res}", res);
+            }
+        }
+        else
+        {
+            Log.Error("No instance for your start_id {inputLine}", inputLine);
+        }
+    }
+    else
+    {
+        Log.Error("No input received for simulation start id {inputLine}.", inputLine);
+    }
 }
 else
 {
