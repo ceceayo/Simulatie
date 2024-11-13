@@ -181,12 +181,13 @@ else if (input == 'l')
     if (inputLine != null)
     {
         var startId = int.Parse(inputLine);
+        var steps = int.Parse(Console.ReadLine()!);
         var sim = db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
         Log.Debug("THIS {@sim}", sim);
         var instance = up.GetInstance(sim.Unit.Id, db);
         if (instance != null)
         {
-            while (Console.ReadLine() != "q")
+            for (int i = 0; i < steps; i++)
             {
                 Log.Information("running simulation on {@instance}", instance);
                 var res = RunSimulationAt(instance, sim);
