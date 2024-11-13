@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using Serilog;
 using Serilog.Debugging;
 
@@ -22,25 +23,36 @@ namespace Simulatie.StatTypes
             Role = me_in_db.Role;
             
         }
-        public void AskForValueInput(SimulationDatabaseContext db)
+        public void AskForValueInput(SimulationDatabaseContext db, bool guiMode, string Message)
         {
-            Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
-            int value;
-            while (true)
-            {
-                string input = Console.ReadLine();
-                if(int.TryParse(input, out value))
+                Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
+                int value;
+                while (true)
                 {
-                    break;
-                } else
+                string input;
+                if (guiMode)
                 {
-                    Log.Error("Please enter a valid number. Can NOT parse '{input}' as int. Try again!", input);
+                    input = Interaction.InputBox(Message, "Enter a number", "0");
                 }
-            }
-            var me_in_db = db.Statistics.Find(Id);
-            me_in_db.Value = value.ToString();
-            Value = value.ToString();
-            db.SaveChanges();
+                else
+                {
+                    input = Console.ReadLine();
+                }
+                    if (int.TryParse(input, out value))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Log.Error("Please enter a valid number. Can NOT parse '{input}' as int. Try again!", input);
+                    }
+                }
+            
+                var me_in_db = db.Statistics.Find(Id);
+                me_in_db.Value = value.ToString();
+                Value = value.ToString();
+                db.SaveChanges();
+            
         } 
         public int GetNumber()
         {

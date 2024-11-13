@@ -12,6 +12,6 @@ namespace Simulatie
         public int Id { get; }
         public int Role { get; }
         public string Value { get; }
-        public void AskForValueInput(SimulationDatabaseContext db);
+        public void AskForValueInput(SimulationDatabaseContext db, bool GuiMode, string Message);
     }
 }

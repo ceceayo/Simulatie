@@ -11,6 +11,7 @@ namespace Simulatie
 {
     public class StatProvider
     {
+        public bool GuiMode = false;
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
             {1, typeof(SimpleNumber)}
@@ -55,7 +56,7 @@ namespace Simulatie
                     Log.Information("Please, enter a value for stat with role {role} of type {type}.", role, type);
                     Log.Information("Message: {msg}", message);
                     Console.WriteLine("Please, enter a value for stat with role {0} of type {1}. The supplied message is {2}", role, type, message);
-                    x.AskForValueInput(db);
+                    x.AskForValueInput(db, GuiMode, message);
                     db.Statistics.Find(z.Id).Value = x.Value;
                     var stat = db.Statistics.Find(z.Id);
                     if (stat != null)
