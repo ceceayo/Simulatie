@@ -5,7 +5,7 @@ namespace Simulatie.UnitTypes
 {
     public class School : IUnitType
     {
-        public int TypeNum { get; } = 2;
+        public int TypeNum { get; } = 6;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
