@@ -13,6 +13,8 @@ namespace Simulatie
             { 3, typeof(Lamp) },
             { 4, typeof(Freezer) },
             { 5, typeof(Refrigerator) },
+            { 6, typeof(School) },
+            { 7, typeof(Schoollamp) },
         };
 
         public UnitProvider()
