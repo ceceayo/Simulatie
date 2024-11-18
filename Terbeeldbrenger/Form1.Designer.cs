@@ -31,9 +31,14 @@
             label1 = new Label();
             button1 = new Button();
             resultLabel = new Label();
-            numericUpDown1 = new NumericUpDown();
+            startIdSelector = new NumericUpDown();
             button2 = new Button();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            multipleRunsAmountSelector = new NumericUpDown();
+            runMultipleStepsButton = new Button();
+            multiStepStatusLabel = new Label();
+            multiStepProgress = new ProgressBar();
+            ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -64,12 +69,12 @@
             resultLabel.TabIndex = 2;
             resultLabel.Text = "Hier komt het prachtige resultaat te staan";
             // 
-            // numericUpDown1
+            // startIdSelector
             // 
-            numericUpDown1.Location = new Point(12, 164);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(399, 23);
-            numericUpDown1.TabIndex = 3;
+            startIdSelector.Location = new Point(12, 164);
+            startIdSelector.Name = "startIdSelector";
+            startIdSelector.Size = new Size(399, 23);
+            startIdSelector.TabIndex = 3;
             // 
             // button2
             // 
@@ -81,19 +86,59 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // multipleRunsAmountSelector
+            // 
+            multipleRunsAmountSelector.Location = new Point(12, 292);
+            multipleRunsAmountSelector.Maximum = new decimal(new int[] { 0, 0, 0, 0 });
+            multipleRunsAmountSelector.Name = "multipleRunsAmountSelector";
+            multipleRunsAmountSelector.Size = new Size(399, 23);
+            multipleRunsAmountSelector.TabIndex = 5;
+            // 
+            // runMultipleStepsButton
+            // 
+            runMultipleStepsButton.Location = new Point(12, 321);
+            runMultipleStepsButton.Name = "runMultipleStepsButton";
+            runMultipleStepsButton.Size = new Size(399, 93);
+            runMultipleStepsButton.TabIndex = 6;
+            runMultipleStepsButton.Text = "Meerdere stappen uitvoeren";
+            runMultipleStepsButton.UseVisualStyleBackColor = true;
+            runMultipleStepsButton.Click += runMultipleStepsButton_Click;
+            // 
+            // multiStepStatusLabel
+            // 
+            multiStepStatusLabel.AutoSize = true;
+            multiStepStatusLabel.Location = new Point(12, 417);
+            multiStepStatusLabel.Name = "multiStepStatusLabel";
+            multiStepStatusLabel.Size = new Size(38, 15);
+            multiStepStatusLabel.TabIndex = 7;
+            multiStepStatusLabel.Text = "label2";
+            // 
+            // multiStepProgress
+            // 
+            multiStepProgress.Location = new Point(12, 435);
+            multiStepProgress.Name = "multiStepProgress";
+            multiStepProgress.Size = new Size(399, 23);
+            multiStepProgress.TabIndex = 8;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(423, 397);
+            ClientSize = new Size(423, 477);
+            Controls.Add(multiStepProgress);
+            Controls.Add(multiStepStatusLabel);
+            Controls.Add(runMultipleStepsButton);
+            Controls.Add(multipleRunsAmountSelector);
             Controls.Add(button2);
-            Controls.Add(numericUpDown1);
+            Controls.Add(startIdSelector);
             Controls.Add(resultLabel);
             Controls.Add(button1);
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)startIdSelector).EndInit();
+            ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -103,7 +148,11 @@
         private Label label1;
         private Button button1;
         private Label resultLabel;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown startIdSelector;
         private Button button2;
+        private NumericUpDown multipleRunsAmountSelector;
+        private Button runMultipleStepsButton;
+        private Label multiStepStatusLabel;
+        private ProgressBar multiStepProgress;
     }
 }
