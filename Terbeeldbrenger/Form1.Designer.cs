@@ -38,6 +38,8 @@
             multiStepStatusLabel = new Label();
             multiStepProgress = new ProgressBar();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            cancelButton = new Button();
+            exitButton = new Button();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -108,15 +110,14 @@
             // multiStepStatusLabel
             // 
             multiStepStatusLabel.AutoSize = true;
-            multiStepStatusLabel.Location = new Point(12, 417);
+            multiStepStatusLabel.Location = new Point(12, 479);
             multiStepStatusLabel.Name = "multiStepStatusLabel";
-            multiStepStatusLabel.Size = new Size(38, 15);
+            multiStepStatusLabel.Size = new Size(0, 15);
             multiStepStatusLabel.TabIndex = 7;
-            multiStepStatusLabel.Text = "label2";
             // 
             // multiStepProgress
             // 
-            multiStepProgress.Location = new Point(12, 435);
+            multiStepProgress.Location = new Point(12, 497);
             multiStepProgress.Name = "multiStepProgress";
             multiStepProgress.Size = new Size(399, 23);
             multiStepProgress.TabIndex = 8;
@@ -129,11 +130,34 @@
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             // 
+            // cancelButton
+            // 
+            cancelButton.Enabled = false;
+            cancelButton.Location = new Point(12, 420);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(266, 56);
+            cancelButton.TabIndex = 9;
+            cancelButton.Text = "ABBRECHEN";
+            cancelButton.UseVisualStyleBackColor = true;
+            cancelButton.Click += cancelButton_Click;
+            // 
+            // exitButton
+            // 
+            exitButton.Location = new Point(284, 420);
+            exitButton.Name = "exitButton";
+            exitButton.Size = new Size(127, 56);
+            exitButton.TabIndex = 10;
+            exitButton.Text = "Applicatie sluiten";
+            exitButton.UseVisualStyleBackColor = true;
+            exitButton.Click += exitButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(423, 477);
+            ClientSize = new Size(423, 532);
+            Controls.Add(exitButton);
+            Controls.Add(cancelButton);
             Controls.Add(multiStepProgress);
             Controls.Add(multiStepStatusLabel);
             Controls.Add(runMultipleStepsButton);
@@ -146,7 +170,7 @@
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            Text = "De TERBEELDBRENGER";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)startIdSelector).EndInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).EndInit();
@@ -166,5 +190,7 @@
         private Label multiStepStatusLabel;
         private ProgressBar multiStepProgress;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Button cancelButton;
+        private Button exitButton;
     }
 }

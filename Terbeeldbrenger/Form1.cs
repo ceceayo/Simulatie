@@ -53,6 +53,8 @@ namespace Terbeeldbrenger
                 button2.Enabled = false;
                 startIdSelector.Enabled = false;
                 multipleRunsAmountSelector.Enabled = false;
+                cancelButton.Enabled = true;
+                exitButton.Enabled = false;
                 backgroundWorker1.RunWorkerAsync();
             }
             else
@@ -114,6 +116,19 @@ namespace Terbeeldbrenger
             button2.Enabled = true;
             startIdSelector.Enabled = true;
             multipleRunsAmountSelector.Enabled = true;
+            cancelButton.Enabled = false;
+            exitButton.Enabled = true;
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Interaction.Beep();
+            Application.Exit();
         }
     }
 }
