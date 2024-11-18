@@ -48,8 +48,14 @@ namespace Terbeeldbrenger
             if (backgroundWorker1.IsBusy != true)
             {
                 // Start the asynchronous operation.
+                runMultipleStepsButton.Enabled = false;
+                button1.Enabled = false;
+                button2.Enabled = false;
+                startIdSelector.Enabled = false;
+                multipleRunsAmountSelector.Enabled = false;
                 backgroundWorker1.RunWorkerAsync();
-            } else
+            }
+            else
             {
                 maxSteps = int.Parse(multipleRunsAmountSelector.Value.ToString());
                 Interaction.Beep();
@@ -86,7 +92,7 @@ namespace Terbeeldbrenger
                 {
                     //resultLabel.Text = "Geen instance voor start_id.";
                 }
-                worker.ReportProgress((i+1) * 100 / steps);
+                worker.ReportProgress((i + 1) * 100 / steps);
             }
 
             Interaction.Beep();
@@ -98,6 +104,16 @@ namespace Terbeeldbrenger
         {
             multiStepStatusLabel.Text = (e.ProgressPercentage.ToString() + "%");
             multiStepProgress.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+            runMultipleStepsButton.Enabled = true;
+            button1.Enabled = true;
+            button2.Enabled = true;
+            startIdSelector.Enabled = true;
+            multipleRunsAmountSelector.Enabled = true;
         }
     }
 }
