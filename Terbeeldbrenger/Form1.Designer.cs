@@ -37,6 +37,7 @@
             runMultipleStepsButton = new Button();
             multiStepStatusLabel = new Label();
             multiStepProgress = new ProgressBar();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -120,6 +121,13 @@
             multiStepProgress.Size = new Size(399, 23);
             multiStepProgress.TabIndex = 8;
             // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -154,5 +162,6 @@
         private Button runMultipleStepsButton;
         private Label multiStepStatusLabel;
         private ProgressBar multiStepProgress;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
