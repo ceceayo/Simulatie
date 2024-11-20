@@ -29,7 +29,8 @@ namespace Simulatie.UnitTypes
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
             SimpleNumber? lamps_to_make = sp.FindInstance(db, 6*10000+1, 1, sim, "Total lamps in school") as SimpleNumber;
-            SimpleNumber? cafeterias_to_make = sp.FindInstance(db, 6 * 10000 + 1, 1, sim, "Total cafeterias in school") as SimpleNumber;
+            SimpleNumber? cafeterias_to_make = sp.FindInstance(db, 6 * 10000 + 2, 1, sim, "Total cafeterias in school") as SimpleNumber;
+            SimpleNumber? classrooms_to_make = sp.FindInstance(db, 6 * 10000 + 3, 1, sim, "Total classrooms in school") as SimpleNumber;
             if (lamps_to_make == null)
             {
                 Log.Fatal("Total lamps to make per school was not found.");
@@ -40,6 +41,11 @@ namespace Simulatie.UnitTypes
                 Log.Fatal("Total cafeterias to make per school was not found.");
                 throw new InvalidOperationException("Total cafeterias to make per school was not found.");
             }
+            if (classrooms_to_make == null)
+            {
+                Log.Fatal("Total classrooms to make per school was not found.");
+                throw new InvalidOperationException("Total classrooms to make per school was not found.");
+            }
             List<IUnitType> child_creations = new List<IUnitType>();
             for (int i = 0; i < lamps_to_make.GetNumber(); i++)
             {
@@ -49,8 +55,14 @@ namespace Simulatie.UnitTypes
             }
             for (int i = 0; i < cafeterias_to_make.GetNumber(); i++)
             {
-                Schoolcafetaria lamp = new Schoolcafetaria(args: new Dictionary<int, string>(), id: 0, owner: null);
-                child_creations.Add(lamp);
+                Schoolcafetaria cafeteria = new Schoolcafetaria(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(cafeteria);
+
+            }
+            for (int i = 0; i < classrooms_to_make.GetNumber(); i++)
+            {
+                Classroom classroom = new Classroom(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(classroom);
 
             }
             return child_creations;
