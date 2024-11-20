@@ -19,7 +19,7 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? statInstance = sp.FindInstance(db, 5, 1, sim, "Electricity used by lamps in school") as SimpleNumber;
+            SimpleNumber? statInstance = sp.FindInstance(db, 7*10000+1, 1, sim, "Electricity used by lamps in school") as SimpleNumber;
             return new UnitTickResponse
             {
                 NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
