@@ -20,11 +20,22 @@ namespace Simulatie.UnitTypes
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
             SimpleNumber? statInstance = sp.FindInstance(db, 7*10000+1, 1, sim, "Electricity used by lamps in school") as SimpleNumber;
-            return new UnitTickResponse
+            if (sim.Day % 7 < 6 && sim.Hour > 8 && sim.Hour < 17)
             {
-                NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = statInstance != null ? int.Parse(statInstance.Value) : 0 // Assuming IStatType has an Id property
-            };
+                return new UnitTickResponse
+                {
+                    NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
+                    ResourcesUsed = statInstance != null ? int.Parse(statInstance.Value) : 0 // Assuming IStatType has an Id property
+                };
+            }
+            else
+            {
+                return new UnitTickResponse
+                {
+                    NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
+                    ResourcesUsed = 0
+                };
+            }
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
