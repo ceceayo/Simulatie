@@ -122,6 +122,7 @@ namespace Terbeeldbrenger
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            cancelButton.Enabled = false;
             backgroundWorker1.CancelAsync();
         }
 
