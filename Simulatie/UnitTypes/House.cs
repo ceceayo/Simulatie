@@ -31,6 +31,7 @@ namespace Simulatie.UnitTypes
             SimpleNumber? lamps_to_make = sp.FindInstance(db, 2*10000+1, 1, sim, "Total lamps in house") as SimpleNumber;
             SimpleNumber? refrigerators_to_make = sp.FindInstance(db, 2*10000+2, 1, sim, "Total refrigerators in house") as SimpleNumber;
             SimpleNumber? freezers_to_make = sp.FindInstance(db, 2*10000+3, 1, sim, "Total freezers in house") as SimpleNumber;
+            SimpleNumber? microwaves_to_make = sp.FindInstance(db, 2 * 10000+5, 1, sim, "Total microwaves in house") as SimpleNumber;
             if (lamps_to_make == null)
             {
                 Log.Fatal("Total lamps to make per house was not found.");
@@ -53,6 +54,12 @@ namespace Simulatie.UnitTypes
             {
                 Freezer freezer = new Freezer(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(freezer);
+
+            }
+            for (int i = 0; i < microwaves_to_make.GetNumber(); i++)
+            {
+                Microwave microwave = new Microwave(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(microwave);
 
             }
             return child_creations;
