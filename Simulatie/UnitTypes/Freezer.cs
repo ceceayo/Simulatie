@@ -18,7 +18,7 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            var statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by freezer(s)");
+            var statInstance = sp.FindInstance(db, 4*10000+1, 1, sim, "Electricity used by freezer(s)");
             return new UnitTickResponse
             {
                 NewUnit = new Freezer(args: this.Arguments, id: this.Id, owner: Owner),
