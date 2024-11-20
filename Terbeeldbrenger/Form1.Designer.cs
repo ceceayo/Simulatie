@@ -40,6 +40,9 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             cancelButton = new Button();
             exitButton = new Button();
+            label2 = new Label();
+            label3 = new Label();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -74,9 +77,9 @@
             // 
             // startIdSelector
             // 
-            startIdSelector.Location = new Point(12, 164);
+            startIdSelector.Location = new Point(96, 164);
             startIdSelector.Name = "startIdSelector";
-            startIdSelector.Size = new Size(399, 23);
+            startIdSelector.Size = new Size(315, 23);
             startIdSelector.TabIndex = 3;
             // 
             // button2
@@ -91,10 +94,10 @@
             // 
             // multipleRunsAmountSelector
             // 
-            multipleRunsAmountSelector.Location = new Point(12, 292);
+            multipleRunsAmountSelector.Location = new Point(96, 292);
             multipleRunsAmountSelector.Maximum = new decimal(new int[] { 0, 0, 0, 0 });
             multipleRunsAmountSelector.Name = "multipleRunsAmountSelector";
-            multipleRunsAmountSelector.Size = new Size(399, 23);
+            multipleRunsAmountSelector.Size = new Size(315, 23);
             multipleRunsAmountSelector.TabIndex = 5;
             // 
             // runMultipleStepsButton
@@ -151,11 +154,42 @@
             exitButton.UseVisualStyleBackColor = true;
             exitButton.Click += exitButton_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 166);
+            label2.Name = "label2";
+            label2.Size = new Size(78, 15);
+            label2.TabIndex = 11;
+            label2.Text = "Simulation ID";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 294);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 15);
+            label3.TabIndex = 12;
+            label3.Text = "Steps to run";
+            // 
+            // button3
+            // 
+            button3.Location = new Point(12, 526);
+            button3.Name = "button3";
+            button3.Size = new Size(399, 108);
+            button3.TabIndex = 13;
+            button3.Text = "BEARBEITUNGSHANDBUCHOEFNUNGSBUTTON";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(423, 532);
+            ClientSize = new Size(423, 646);
+            Controls.Add(button3);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(exitButton);
             Controls.Add(cancelButton);
             Controls.Add(multiStepProgress);
@@ -192,5 +226,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Button cancelButton;
         private Button exitButton;
+        private Label label2;
+        private Label label3;
+        private Button button3;
     }
 }
