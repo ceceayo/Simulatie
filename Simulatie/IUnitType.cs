@@ -8,5 +8,9 @@
         public IUnitType? Owner { get; set; }
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim);
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim);
+        public String ToString()
+        {
+            return $"IUnitType with id {Id}.";
+        }
     }
 }

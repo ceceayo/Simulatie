@@ -136,5 +136,24 @@ namespace Terbeeldbrenger
         {
             Interaction.Beep();
         }
+
+        /*internal void viewSimulationButton_Click_Recursive(int simulationId, IUnitType unit, TreeNodeCollection)
+        {
+            foreach (IUnitType child in sim.up.GetAllOwnedBy(unit, sim.db))
+            {
+
+            }
+        }*/
+
+        private void viewSimulationButton_Click(object sender, EventArgs e)
+        {
+            simulationTree.Nodes.Clear();
+            int simulationId = int.Parse(startIdSelector.Value.ToString());
+            var simulation = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == simulationId);
+            simulationTree.BeginUpdate();
+            simulationTree.Nodes.Add(simulation.Unit.ToString());
+
+
+        }
     }
 }

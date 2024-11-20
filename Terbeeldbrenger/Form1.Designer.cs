@@ -43,6 +43,8 @@
             label2 = new Label();
             label3 = new Label();
             button3 = new Button();
+            simulationTree = new TreeView();
+            viewSimulationButton = new Button();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -136,9 +138,9 @@
             // cancelButton
             // 
             cancelButton.Enabled = false;
-            cancelButton.Location = new Point(12, 420);
+            cancelButton.Location = new Point(131, 526);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(266, 56);
+            cancelButton.Size = new Size(107, 108);
             cancelButton.TabIndex = 9;
             cancelButton.Text = "ABBRECHEN";
             cancelButton.UseVisualStyleBackColor = true;
@@ -146,9 +148,9 @@
             // 
             // exitButton
             // 
-            exitButton.Location = new Point(284, 420);
+            exitButton.Location = new Point(12, 526);
             exitButton.Name = "exitButton";
-            exitButton.Size = new Size(127, 56);
+            exitButton.Size = new Size(113, 108);
             exitButton.TabIndex = 10;
             exitButton.Text = "Applicatie sluiten";
             exitButton.UseVisualStyleBackColor = true;
@@ -174,19 +176,38 @@
             // 
             // button3
             // 
-            button3.Location = new Point(12, 526);
+            button3.Location = new Point(244, 526);
             button3.Name = "button3";
-            button3.Size = new Size(399, 108);
+            button3.Size = new Size(167, 108);
             button3.TabIndex = 13;
             button3.Text = "BEARBEITUNGSHANDBUCHOEFNUNGSBUTTON";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // simulationTree
+            // 
+            simulationTree.Location = new Point(417, 12);
+            simulationTree.Name = "simulationTree";
+            simulationTree.Size = new Size(586, 622);
+            simulationTree.TabIndex = 14;
+            // 
+            // viewSimulationButton
+            // 
+            viewSimulationButton.Location = new Point(12, 420);
+            viewSimulationButton.Name = "viewSimulationButton";
+            viewSimulationButton.Size = new Size(399, 56);
+            viewSimulationButton.TabIndex = 15;
+            viewSimulationButton.Text = "Bekijk simulatie";
+            viewSimulationButton.UseVisualStyleBackColor = true;
+            viewSimulationButton.Click += viewSimulationButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(423, 646);
+            ClientSize = new Size(1015, 646);
+            Controls.Add(viewSimulationButton);
+            Controls.Add(simulationTree);
             Controls.Add(button3);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -229,5 +250,7 @@
         private Label label2;
         private Label label3;
         private Button button3;
+        private TreeView simulationTree;
+        private Button viewSimulationButton;
     }
 }
