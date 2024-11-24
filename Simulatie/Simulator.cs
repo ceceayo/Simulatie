@@ -132,5 +132,12 @@ namespace Simulatie
             }
             return result.ResourcesUsed;
         }
+
+        public void CleanUp()
+        {
+            db.SaveChanges();
+            db.Dispose();
+            Log.Information("So long and thanks for all the simulations. And fish.");
+        }
     }
 }
