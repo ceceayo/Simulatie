@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
 {
@@ -18,11 +19,11 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            var statInstance = sp.FindInstance(db, 10*10000+1, 1, sim, "Electricity used by Charger(s)");
+            SimpleNumber? statInstance = sp.FindInstance(db, 10*10000+1, 1, sim, "Electricity used by Charger(s)") as SimpleNumber;
             return new UnitTickResponse
             {
                 NewUnit = new Phonecharger(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = statInstance != null ? statInstance.Id : 0 // Assuming IStatType has an Id property
+                ResourcesUsed = statInstance != null ? statInstance.GetNumber() : 0 // Assuming IStatType has an Id property
             };
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)

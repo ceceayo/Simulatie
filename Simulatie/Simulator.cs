@@ -69,6 +69,10 @@ namespace Simulatie
             var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
             Log.Debug("Database has object {@obj} stored.", q);
             var result = unit.OnTick(db, sp, up, sim);
+            SimulatedUnit unitToSetUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
+            unitToSetUsedResourcesOf.ResourcesUsedLastRound = result.ResourcesUsed;
+            Log.Information("Setting resources used of unit {Id} to {power} watts", unit.Id, result.ResourcesUsed);
+            db.SaveChanges();
             TotalPowerUsed += result.ResourcesUsed;
             new_units.Add(result.NewUnit);
             Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
