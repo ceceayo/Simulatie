@@ -87,6 +87,9 @@ namespace Simulatie
                     new_units.Add(NewUnit);
                 }
             }
+            SimulatedUnit unitToSetRecursiveUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
+            unitToSetRecursiveUsedResourcesOf.ResourcesUsedLastRoundRecursive = TotalPowerUsed;
+            db.SaveChanges();
             return new RunSimulationRecursiveResult
             {
                 NewUnits = new_units,
