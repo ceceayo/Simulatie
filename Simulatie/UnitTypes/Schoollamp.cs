@@ -3,13 +3,13 @@ using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
 {
-    public class Schoollamp : IUnitType
+    public class SchoolLamp : IUnitType
     {
         public int TypeNum { get; } = 7;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
-        public Schoollamp(int id, Dictionary<int, string> args, IUnitType? owner)
+        public SchoolLamp(int id, Dictionary<int, string> args, IUnitType? owner)
         {
             this.Id = id;
             this.Arguments = args;
@@ -24,7 +24,7 @@ namespace Simulatie.UnitTypes
             {
                 return new UnitTickResponse
                 {
-                    NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
+                    NewUnit = new SchoolLamp(args: this.Arguments, id: this.Id, owner: Owner),
                     ResourcesUsed = statInstance != null ? int.Parse(statInstance.Value) : 0 // Assuming IStatType has an Id property
                 };
             }
@@ -32,7 +32,7 @@ namespace Simulatie.UnitTypes
             {
                 return new UnitTickResponse
                 {
-                    NewUnit = new Schoollamp(args: this.Arguments, id: this.Id, owner: Owner),
+                    NewUnit = new SchoolLamp(args: this.Arguments, id: this.Id, owner: Owner),
                     ResourcesUsed = 0
                 };
             }

@@ -33,6 +33,7 @@ namespace Simulatie.UnitTypes
             SimpleNumber? freezers_to_make = sp.FindInstance(db, 2*10000+3, 1, sim, "Total freezers in house") as SimpleNumber;
             SimpleNumber? phonechargers_to_make = sp.FindInstance(db, 2 * 10000 + 4, 1, sim, "Total phonechargers in house") as SimpleNumber;
             SimpleNumber? microwaves_to_make = sp.FindInstance(db, 2 * 10000+5, 1, sim, "Total microwaves in house") as SimpleNumber;
+            SimpleNumber? personalcomputers_to_make = sp.FindInstance(db, 2 * 10000 + 6, 1, sim, "Total personalcomputers in house") as SimpleNumber;
             if (lamps_to_make == null)
             {
                 Log.Fatal("Total lamps to make per house was not found.");
@@ -59,7 +60,7 @@ namespace Simulatie.UnitTypes
             }
             for (int i = 0; i < phonechargers_to_make.GetNumber(); i++)
             {
-                Phonecharger phonechargers = new Phonecharger(args: new Dictionary<int, string>(), id: 0, owner: null);
+                PhoneCharger phonechargers = new PhoneCharger(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(phonechargers);
 
             }
@@ -67,6 +68,12 @@ namespace Simulatie.UnitTypes
             {
                 Microwave microwave = new Microwave(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(microwave);
+
+            }
+            for (int i = 0; i < personalcomputers_to_make.GetNumber(); i++)
+            {
+                PersonalComputer personalcomputer = new PersonalComputer(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(personalcomputer);
 
             }
             return child_creations;

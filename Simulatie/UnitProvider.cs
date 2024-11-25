@@ -14,11 +14,12 @@ namespace Simulatie
             { 4, typeof(Freezer) },
             { 5, typeof(Refrigerator) },
             { 6, typeof(School) },
-            { 7, typeof(Schoollamp) },
-            { 8, typeof(Schoolcafetaria) },
+            { 7, typeof(SchoolLamp) },
+            { 8, typeof(SchoolCafetaria) },
             { 9, typeof(Classroom) },
-            { 10, typeof(Phonecharger) },
+            { 10, typeof(PhoneCharger) },
             { 11, typeof(Microwave) },
+            { 13, typeof(PersonalComputer) },
         };
 
         public UnitProvider()

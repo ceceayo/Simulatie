@@ -3,27 +3,27 @@ using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
 {
-    public class PhoneCharger : IUnitType
+    public class PersonalComputer : IUnitType
     {
-        public int TypeNum { get; } = 4;
+        public int TypeNum { get; } = 3;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
-        public PhoneCharger(int id, Dictionary<int, string> args, IUnitType? owner)
+        public PersonalComputer(int id, Dictionary<int, string> args, IUnitType? owner)
         {
             this.Id = id;
             this.Arguments = args;
             Owner = owner;
-            Log.Debug("Create IUnitType instance of type PhoneCharger with value {val}.", this);
+            Log.Debug("Create IUnitType instance of type Personalcomputer with value {val}.", this);
         }
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? statInstance = sp.FindInstance(db, 10*10000+1, 1, sim, "Electricity used by Charger(s)") as SimpleNumber;
+            SimpleNumber? statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by personalcomputers") as SimpleNumber;
             return new UnitTickResponse
             {
-                NewUnit = new PhoneCharger(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = statInstance != null ? statInstance.GetNumber() : 0 // Assuming IStatType has an Id property
+                NewUnit = new PersonalComputer(args: this.Arguments, id: this.Id, owner: Owner),
+                ResourcesUsed = statInstance != null ? int.Parse(statInstance.Value) : 0 // Assuming IStatType has an Id property
             };
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)

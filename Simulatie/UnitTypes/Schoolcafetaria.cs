@@ -3,14 +3,14 @@ using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
 {
-    public class Schoolcafetaria : IUnitType
+    public class SchoolCafetaria : IUnitType
     {
         public int TypeNum { get; } = 8;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
 
-        public Schoolcafetaria(int id, Dictionary<int, string> args, IUnitType? owner)
+        public SchoolCafetaria(int id, Dictionary<int, string> args, IUnitType? owner)
         {
             this.Id = id;
             this.Arguments = args;
@@ -22,7 +22,7 @@ namespace Simulatie.UnitTypes
         {
             return new UnitTickResponse
             {
-                NewUnit = new Schoolcafetaria(args: this.Arguments, id: this.Id, owner: Owner),
+                NewUnit = new SchoolCafetaria(args: this.Arguments, id: this.Id, owner: Owner),
                 ResourcesUsed = 0
             };
         }
@@ -37,7 +37,7 @@ namespace Simulatie.UnitTypes
             List<IUnitType> child_creations = new List<IUnitType>();
             for (int i = 0; i < lamps_to_make.GetNumber(); i++)
             {
-                Schoollamp lamp = new Schoollamp(args: new Dictionary<int, string>(), id: 0, owner: null);
+                SchoolLamp lamp = new SchoolLamp(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(lamp);
 
             }

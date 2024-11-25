@@ -38,8 +38,8 @@ namespace Simulatie.UnitTypes
             }
             if (cafeterias_to_make == null)
             {
-                Log.Fatal("Total cafeterias to make per school was not found.");
-                throw new InvalidOperationException("Total cafeterias to make per school was not found.");
+                Log.Fatal("Total cafetarias to make per school was not found.");
+                throw new InvalidOperationException("Total cafetarias to make per school was not found.");
             }
             if (classrooms_to_make == null)
             {
@@ -49,13 +49,13 @@ namespace Simulatie.UnitTypes
             List<IUnitType> child_creations = new List<IUnitType>();
             for (int i = 0; i < lamps_to_make.GetNumber(); i++)
             {
-                Schoollamp lamp = new Schoollamp(args: new Dictionary<int, string>(), id: 0, owner: null);
+                SchoolLamp lamp = new SchoolLamp(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(lamp);
 
             }
             for (int i = 0; i < cafeterias_to_make.GetNumber(); i++)
             {
-                Schoolcafetaria cafeteria = new Schoolcafetaria(args: new Dictionary<int, string>(), id: 0, owner: null);
+                SchoolCafetaria cafeteria = new SchoolCafetaria(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(cafeteria);
 
             }
