@@ -43,8 +43,8 @@
             label2 = new Label();
             label3 = new Label();
             button3 = new Button();
-            simulationTree = new TreeView();
             viewSimulationButton = new Button();
+            simulationTree = new TreeView();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -62,7 +62,7 @@
             // 
             button1.Location = new Point(12, 27);
             button1.Name = "button1";
-            button1.Size = new Size(399, 88);
+            button1.Size = new Size(406, 88);
             button1.TabIndex = 1;
             button1.Text = "Maak Simulatie";
             button1.UseVisualStyleBackColor = true;
@@ -81,14 +81,14 @@
             // 
             startIdSelector.Location = new Point(96, 164);
             startIdSelector.Name = "startIdSelector";
-            startIdSelector.Size = new Size(315, 23);
+            startIdSelector.Size = new Size(322, 23);
             startIdSelector.TabIndex = 3;
             // 
             // button2
             // 
             button2.Location = new Point(12, 193);
             button2.Name = "button2";
-            button2.Size = new Size(399, 93);
+            button2.Size = new Size(406, 93);
             button2.TabIndex = 4;
             button2.Text = "Draai Simulatie";
             button2.UseVisualStyleBackColor = true;
@@ -99,14 +99,14 @@
             multipleRunsAmountSelector.Location = new Point(96, 292);
             multipleRunsAmountSelector.Maximum = new decimal(new int[] { 0, 0, 0, 0 });
             multipleRunsAmountSelector.Name = "multipleRunsAmountSelector";
-            multipleRunsAmountSelector.Size = new Size(315, 23);
+            multipleRunsAmountSelector.Size = new Size(322, 23);
             multipleRunsAmountSelector.TabIndex = 5;
             // 
             // runMultipleStepsButton
             // 
             runMultipleStepsButton.Location = new Point(12, 321);
             runMultipleStepsButton.Name = "runMultipleStepsButton";
-            runMultipleStepsButton.Size = new Size(399, 93);
+            runMultipleStepsButton.Size = new Size(406, 93);
             runMultipleStepsButton.TabIndex = 6;
             runMultipleStepsButton.Text = "Meerdere stappen uitvoeren";
             runMultipleStepsButton.UseVisualStyleBackColor = true;
@@ -124,7 +124,7 @@
             // 
             multiStepProgress.Location = new Point(12, 497);
             multiStepProgress.Name = "multiStepProgress";
-            multiStepProgress.Size = new Size(399, 23);
+            multiStepProgress.Size = new Size(406, 23);
             multiStepProgress.TabIndex = 8;
             // 
             // backgroundWorker1
@@ -140,7 +140,7 @@
             cancelButton.Enabled = false;
             cancelButton.Location = new Point(131, 526);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(107, 108);
+            cancelButton.Size = new Size(114, 108);
             cancelButton.TabIndex = 9;
             cancelButton.Text = "ABBRECHEN";
             cancelButton.UseVisualStyleBackColor = true;
@@ -176,7 +176,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(244, 526);
+            button3.Location = new Point(251, 526);
             button3.Name = "button3";
             button3.Size = new Size(167, 108);
             button3.TabIndex = 13;
@@ -184,28 +184,28 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
-            // simulationTree
-            // 
-            simulationTree.Location = new Point(417, 12);
-            simulationTree.Name = "simulationTree";
-            simulationTree.Size = new Size(586, 622);
-            simulationTree.TabIndex = 14;
-            // 
             // viewSimulationButton
             // 
             viewSimulationButton.Location = new Point(12, 420);
             viewSimulationButton.Name = "viewSimulationButton";
-            viewSimulationButton.Size = new Size(399, 56);
+            viewSimulationButton.Size = new Size(406, 56);
             viewSimulationButton.TabIndex = 15;
             viewSimulationButton.Text = "Bekijk simulatie";
             viewSimulationButton.UseVisualStyleBackColor = true;
             viewSimulationButton.Click += viewSimulationButton_Click;
             // 
+            // simulationTree
+            // 
+            simulationTree.Location = new Point(450, 12);
+            simulationTree.Name = "simulationTree";
+            simulationTree.Size = new Size(500, 622);
+            simulationTree.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1015, 646);
+            ClientSize = new Size(430, 657);
             Controls.Add(viewSimulationButton);
             Controls.Add(simulationTree);
             Controls.Add(button3);
@@ -250,7 +250,7 @@
         private Label label2;
         private Label label3;
         private Button button3;
-        private TreeView simulationTree;
         private Button viewSimulationButton;
+        private TreeView simulationTree;
     }
 }

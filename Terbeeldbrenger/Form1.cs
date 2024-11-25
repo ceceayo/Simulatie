@@ -137,22 +137,36 @@ namespace Terbeeldbrenger
             Interaction.Beep();
         }
 
-        /*internal void viewSimulationButton_Click_Recursive(int simulationId, IUnitType unit, TreeNodeCollection)
+        internal List<TreeNode> viewSimulationButton_Click_Recursive(int simulationId, IUnitType unit)
         {
+            List<TreeNode> nodes = new List<TreeNode>();
             foreach (IUnitType child in sim.up.GetAllOwnedBy(unit, sim.db))
             {
-
+                TreeNode node = new TreeNode($"{sim.up.GetType(child.TypeNum).Name} ({child.Id}) [{sim.db.SimulatedUnits.Find(child.Id)!.ResourcesUsedLastRound} / {sim.db.SimulatedUnits.Find(child.Id)!.ResourcesUsedLastRoundRecursive}]");
+                
+                foreach (TreeNode node2 in viewSimulationButton_Click_Recursive(simulationId, child))
+                {
+                    node.Nodes.Add(node2);
+                }
+                nodes.Add(node);
             }
-        }*/
+            return nodes;
+        }
 
         private void viewSimulationButton_Click(object sender, EventArgs e)
         {
+            this.Size = new System.Drawing.Size(1000, 700);
             simulationTree.Nodes.Clear();
             int simulationId = int.Parse(startIdSelector.Value.ToString());
             var simulation = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == simulationId);
             simulationTree.BeginUpdate();
-            simulationTree.Nodes.Add(simulation.Unit.ToString());
-
+            TreeNode root = new TreeNode($"City (id {simulation.Unit.Id}) [{simulation.Unit.ResourcesUsedLastRound} / {simulation.Unit.ResourcesUsedLastRoundRecursive}]");
+            simulationTree.Nodes.Add(root);
+            foreach (TreeNode node2 in viewSimulationButton_Click_Recursive(simulation.Id, sim.up.GetInstance(simulation.Unit.Id, sim.db)!))
+            {
+                root.Nodes.Add(node2);
+            }
+            simulationTree.EndUpdate();
 
         }
     }

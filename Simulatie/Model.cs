@@ -55,6 +55,7 @@ namespace Simulatie
         public SimulatedUnit? Owner { set; get; }
 
         public int ResourcesUsedLastRound { set; get; }
+        public int ResourcesUsedLastRoundRecursive { set; get; }
     }
 
     public class UnitArgument
