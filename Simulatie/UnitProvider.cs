@@ -19,6 +19,7 @@ namespace Simulatie
             { 9, typeof(Classroom) },
             { 10, typeof(PhoneCharger) },
             { 11, typeof(Microwave) },
+            { 12, typeof(Hospital) },
             { 13, typeof(PersonalComputer) },
         };
 
