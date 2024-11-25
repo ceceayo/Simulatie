@@ -52,6 +52,18 @@ namespace Simulatie.UnitTypes
                 child_creations.Add(school);
 
             }
+            SimpleNumber? total_hospitals_to_make = sp.FindInstance(db, 5, 1, sim, "Total schools to make") as SimpleNumber;
+            if (total_hospitals_to_make == null)
+            {
+                Log.Fatal("Total hospitals to make was not found.");
+                throw new InvalidOperationException("Total hospitals to make not found.");
+            }
+            for (int i = 0; i < total_hospitals_to_make.GetNumber(); i++)
+            {
+                Hospital hospital = new Hospital(args: new Dictionary<int, string>(), id: 0, owner: this);
+                child_creations.Add(hospital);
+
+            }
             return child_creations;
         }
     }
