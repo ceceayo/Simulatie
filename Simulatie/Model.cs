@@ -53,6 +53,8 @@ namespace Simulatie
         public int Type { set; get; }
 
         public SimulatedUnit? Owner { set; get; }
+
+        public int ResourcesUsedLastRound { set; get; }
     }
 
     public class UnitArgument
