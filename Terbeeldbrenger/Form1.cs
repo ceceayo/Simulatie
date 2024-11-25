@@ -73,6 +73,7 @@ namespace Terbeeldbrenger
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
+            Simulator sim = new Simulator();
             int startId = int.Parse(startIdSelector.Value.ToString());
             int steps = int.Parse(multipleRunsAmountSelector.Value.ToString());
             var simul = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
@@ -153,7 +154,12 @@ namespace Terbeeldbrenger
             return nodes;
         }
 
-        private void viewSimulationButton_Click(object sender, EventArgs e)
+        public void viewSimulationButton_Click(object sender, EventArgs e)
+        {
+            viewSimulationButton_Click_x();
+        }
+
+        private void viewSimulationButton_Click_x()
         {
             this.Size = new System.Drawing.Size(1000, 700);
             simulationTree.Nodes.Clear();

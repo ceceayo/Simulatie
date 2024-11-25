@@ -18,6 +18,26 @@ namespace Simulatie
             db = new SimulationDatabaseContext();
             up = new UnitProvider();
             sp = new StatProvider();
+
+            
+        }
+
+        internal void save_db(SimulationDatabaseContext db)
+        {
+            while (true)
+            {
+                try
+                {
+                    db.SaveChanges();
+                    return;
+                }
+                catch
+                {
+                    Log.Error("Could not save database. Trying again in 1 seconds.");
+                    System.Threading.Thread.Sleep(1000);
+                    continue;
+                }
+            }
         }
 
         public int CreateSimulation()
@@ -25,10 +45,10 @@ namespace Simulatie
             Log.Information("I will now be creating a new simulation, meaning a city will be created and populated");
             SimulatedUnit rootCity = new SimulatedUnit { Type = 1, Owner = null };
             db.SimulatedUnits.Add(rootCity);
-            db.SaveChanges();
+            save_db(db);
             Simulation sim = new Simulation { TotalResourcesUsed = 0, Unit = rootCity, Year = 2000, Day = 0, Hour = 11 };
             db.Simulations.Add(sim);
-            db.SaveChanges();
+            save_db(db);
             Log.Information("I have created a city ({@city}) and a simulation ({@sim}).", rootCity, sim);
             List<IUnitType> children = up.GetInstance(rootCity.Id, db)!.OnCreate(db, sp, up, sim);
             Queue<CreateSimulationItem> items = new Queue<CreateSimulationItem>();
@@ -72,7 +92,7 @@ namespace Simulatie
             SimulatedUnit unitToSetUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
             unitToSetUsedResourcesOf.ResourcesUsedLastRound = result.ResourcesUsed;
             Log.Information("Setting resources used of unit {Id} to {power} watts", unit.Id, result.ResourcesUsed);
-            db.SaveChanges();
+            save_db(db);
             TotalPowerUsed += result.ResourcesUsed;
             new_units.Add(result.NewUnit);
             Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
@@ -89,7 +109,7 @@ namespace Simulatie
             }
             SimulatedUnit unitToSetRecursiveUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
             unitToSetRecursiveUsedResourcesOf.ResourcesUsedLastRoundRecursive = TotalPowerUsed;
-            db.SaveChanges();
+            save_db(db);
             return new RunSimulationRecursiveResult
             {
                 NewUnits = new_units,
@@ -119,7 +139,7 @@ namespace Simulatie
             {
                 sim.Hour += 1;
             }
-            db.SaveChanges();
+            save_db(db);
             Log.Debug("Saving new units from database.");
             foreach (var unit in result.NewUnits)
             {
@@ -135,14 +155,14 @@ namespace Simulatie
             else
             {
                 x.TotalResourcesUsed += result.ResourcesUsed;
-                db.SaveChanges();
+                save_db(db);
             }
             return result.ResourcesUsed;
         }
 
         public void CleanUp()
         {
-            db.SaveChanges();
+            save_db(db);
             db.Dispose();
             Log.Information("So long and thanks for all the simulations. And fish.");
         }
