@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using Serilog;
 
 namespace Simulatie
@@ -33,6 +34,7 @@ namespace Simulatie
                 }
                 catch
                 {
+                    Interaction.Beep();
                     Log.Error("Could not save database. Trying again in 1 seconds.");
                     System.Threading.Thread.Sleep(1000);
                     continue;

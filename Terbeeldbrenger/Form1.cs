@@ -18,12 +18,18 @@ namespace Terbeeldbrenger
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Parallel.Invoke(() =>
-            {
-                resultLabel.Text = "Simulatie maken...";
-                int id = sim.CreateSimulation();
-                resultLabel.Text = $"Simulatie gemaakt! Id is {id}.";
-            });
+
+            // Start the asynchronous operation.
+            runMultipleStepsButton.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            startIdSelector.Enabled = false;
+            multipleRunsAmountSelector.Enabled = false;
+            cancelButton.Enabled = false;
+            exitButton.Enabled = false;
+            resultLabel.Text = "Simulatie maken...";
+            Progress.Style = ProgressBarStyle.Marquee;
+            createSimulationBackgroundWorker.RunWorkerAsync();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,7 +51,7 @@ namespace Terbeeldbrenger
 
         private void runMultipleStepsButton_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker1.IsBusy != true)
+            if (runMultipleStepsBackgroundWorker.IsBusy != true)
             {
                 // Start the asynchronous operation.
                 runMultipleStepsButton.Enabled = false;
@@ -55,7 +61,7 @@ namespace Terbeeldbrenger
                 multipleRunsAmountSelector.Enabled = false;
                 cancelButton.Enabled = true;
                 exitButton.Enabled = false;
-                backgroundWorker1.RunWorkerAsync();
+                runMultipleStepsBackgroundWorker.RunWorkerAsync();
             }
             else
             {
@@ -74,6 +80,7 @@ namespace Terbeeldbrenger
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             Simulator sim = new Simulator();
+            sim.sp.GuiMode = true;
             int startId = int.Parse(startIdSelector.Value.ToString());
             int steps = int.Parse(multipleRunsAmountSelector.Value.ToString());
             var simul = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
@@ -106,7 +113,7 @@ namespace Terbeeldbrenger
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             multiStepStatusLabel.Text = (e.ProgressPercentage.ToString() + "%");
-            multiStepProgress.Value = e.ProgressPercentage;
+            Progress.Value = e.ProgressPercentage;
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -124,7 +131,7 @@ namespace Terbeeldbrenger
         private void cancelButton_Click(object sender, EventArgs e)
         {
             cancelButton.Enabled = false;
-            backgroundWorker1.CancelAsync();
+            runMultipleStepsBackgroundWorker.CancelAsync();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -144,7 +151,7 @@ namespace Terbeeldbrenger
             foreach (IUnitType child in sim.up.GetAllOwnedBy(unit, sim.db))
             {
                 TreeNode node = new TreeNode($"{sim.up.GetType(child.TypeNum).Name} ({child.Id}) [{sim.db.SimulatedUnits.Find(child.Id)!.ResourcesUsedLastRound} / {sim.db.SimulatedUnits.Find(child.Id)!.ResourcesUsedLastRoundRecursive}]");
-                
+
                 foreach (TreeNode node2 in viewSimulationButton_Click_Recursive(simulationId, child))
                 {
                     node.Nodes.Add(node2);
@@ -174,6 +181,25 @@ namespace Terbeeldbrenger
             }
             simulationTree.EndUpdate();
 
+        }
+
+        private void createSimulationBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int id = sim.CreateSimulation();
+            e.Result = id;
+        }
+
+        private void createSimulationBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            runMultipleStepsButton.Enabled = true;
+            button1.Enabled = true;
+            button2.Enabled = true;
+            startIdSelector.Enabled = true;
+            multipleRunsAmountSelector.Enabled = true;
+            cancelButton.Enabled = false;
+            exitButton.Enabled = true;
+            Progress.Style = ProgressBarStyle.Blocks;
+            resultLabel.Text = $"Simulatie gemaakt! Id = {e.Result}.";
         }
     }
 }

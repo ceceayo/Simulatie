@@ -36,8 +36,8 @@
             multipleRunsAmountSelector = new NumericUpDown();
             runMultipleStepsButton = new Button();
             multiStepStatusLabel = new Label();
-            multiStepProgress = new ProgressBar();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            Progress = new ProgressBar();
+            runMultipleStepsBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             cancelButton = new Button();
             exitButton = new Button();
             label2 = new Label();
@@ -45,6 +45,7 @@
             button3 = new Button();
             viewSimulationButton = new Button();
             simulationTree = new TreeView();
+            createSimulationBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -120,20 +121,20 @@
             multiStepStatusLabel.Size = new Size(0, 15);
             multiStepStatusLabel.TabIndex = 7;
             // 
-            // multiStepProgress
+            // Progress
             // 
-            multiStepProgress.Location = new Point(12, 497);
-            multiStepProgress.Name = "multiStepProgress";
-            multiStepProgress.Size = new Size(406, 23);
-            multiStepProgress.TabIndex = 8;
+            Progress.Location = new Point(12, 497);
+            Progress.Name = "Progress";
+            Progress.Size = new Size(406, 23);
+            Progress.TabIndex = 8;
             // 
-            // backgroundWorker1
+            // runMultipleStepsBackgroundWorker
             // 
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
-            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
-            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+            runMultipleStepsBackgroundWorker.WorkerReportsProgress = true;
+            runMultipleStepsBackgroundWorker.WorkerSupportsCancellation = true;
+            runMultipleStepsBackgroundWorker.DoWork += backgroundWorker1_DoWork;
+            runMultipleStepsBackgroundWorker.ProgressChanged += backgroundWorker1_ProgressChanged;
+            runMultipleStepsBackgroundWorker.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             // 
             // cancelButton
             // 
@@ -201,6 +202,11 @@
             simulationTree.Size = new Size(500, 622);
             simulationTree.TabIndex = 14;
             // 
+            // createSimulationBackgroundWorker
+            // 
+            createSimulationBackgroundWorker.DoWork += createSimulationBackgroundWorker_DoWork;
+            createSimulationBackgroundWorker.RunWorkerCompleted += createSimulationBackgroundWorker_RunWorkerCompleted;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -213,7 +219,7 @@
             Controls.Add(label2);
             Controls.Add(exitButton);
             Controls.Add(cancelButton);
-            Controls.Add(multiStepProgress);
+            Controls.Add(Progress);
             Controls.Add(multiStepStatusLabel);
             Controls.Add(runMultipleStepsButton);
             Controls.Add(multipleRunsAmountSelector);
@@ -243,8 +249,8 @@
         private NumericUpDown multipleRunsAmountSelector;
         private Button runMultipleStepsButton;
         private Label multiStepStatusLabel;
-        private ProgressBar multiStepProgress;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private ProgressBar Progress;
+        private System.ComponentModel.BackgroundWorker runMultipleStepsBackgroundWorker;
         private Button cancelButton;
         private Button exitButton;
         private Label label2;
@@ -252,5 +258,6 @@
         private Button button3;
         private Button viewSimulationButton;
         private TreeView simulationTree;
+        private System.ComponentModel.BackgroundWorker createSimulationBackgroundWorker;
     }
 }

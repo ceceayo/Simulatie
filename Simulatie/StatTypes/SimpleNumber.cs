@@ -21,14 +21,14 @@ namespace Simulatie.StatTypes
             var me_in_db = db.Statistics.Find(Id);
             Value = me_in_db.Value;
             Role = me_in_db.Role;
-            
+
         }
         public void AskForValueInput(SimulationDatabaseContext db, bool guiMode, string Message)
         {
-                Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
-                int value;
-                while (true)
-                {
+            Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
+            int value;
+            while (true)
+            {
                 string input;
                 if (guiMode)
                 {
@@ -36,24 +36,24 @@ namespace Simulatie.StatTypes
                 }
                 else
                 {
-                    input = Console.ReadLine();
+                    input = Console.ReadLine()!;
                 }
-                    if (int.TryParse(input, out value))
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Log.Error("Please enter a valid number. Can NOT parse '{input}' as int. Try again!", input);
-                    }
+                if (int.TryParse(input, out value))
+                {
+                    break;
                 }
-            
-                var me_in_db = db.Statistics.Find(Id);
-                me_in_db.Value = value.ToString();
-                Value = value.ToString();
-                db.SaveChanges();
-            
-        } 
+                else
+                {
+                    Log.Error("Please enter a valid number. Can NOT parse '{input}' as int. Try again!", input);
+                }
+            }
+
+            var me_in_db = db.Statistics.Find(Id);
+            me_in_db!.Value = value.ToString();
+            Value = value.ToString();
+            db.SaveChanges();
+
+        }
         public int GetNumber()
         {
             return int.Parse(Value);
