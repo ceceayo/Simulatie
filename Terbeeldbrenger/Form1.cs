@@ -29,12 +29,12 @@ namespace Terbeeldbrenger
             exitButton.Enabled = false;
             resultLabel.Text = "Simulatie maken...";
             Progress.Style = ProgressBarStyle.Marquee;
+            updateDatabaseButton.Enabled = false;
             createSimulationBackgroundWorker.RunWorkerAsync();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
             int startId = int.Parse(startIdSelector.Value.ToString());
             var simul = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
             var instance = sim.up.GetInstance(simul.Unit.Id, sim.db);
@@ -61,6 +61,7 @@ namespace Terbeeldbrenger
                 multipleRunsAmountSelector.Enabled = false;
                 cancelButton.Enabled = true;
                 exitButton.Enabled = false;
+                updateDatabaseButton.Enabled = false;
                 runMultipleStepsBackgroundWorker.RunWorkerAsync();
             }
             else
@@ -126,6 +127,7 @@ namespace Terbeeldbrenger
             multipleRunsAmountSelector.Enabled = true;
             cancelButton.Enabled = false;
             exitButton.Enabled = true;
+            updateDatabaseButton.Enabled = true;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -143,7 +145,14 @@ namespace Terbeeldbrenger
         private void button3_Click(object sender, EventArgs e)
         {
             Interaction.Beep();
+            var psi = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://ceayo.neocities.org/bearbeitungshandbuchoefnungsfarberesultat.html",
+                UseShellExecute = true
+            };
+            System.Diagnostics.Process.Start(psi);
         }
+
 
         internal List<TreeNode> viewSimulationButton_Click_Recursive(int simulationId, IUnitType unit)
         {
@@ -185,6 +194,8 @@ namespace Terbeeldbrenger
 
         private void createSimulationBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            Simulator sim = new Simulator();
+            sim.sp.GuiMode = true;
             int id = sim.CreateSimulation();
             e.Result = id;
         }
@@ -198,8 +209,20 @@ namespace Terbeeldbrenger
             multipleRunsAmountSelector.Enabled = true;
             cancelButton.Enabled = false;
             exitButton.Enabled = true;
+            updateDatabaseButton.Enabled = true;
             Progress.Style = ProgressBarStyle.Blocks;
             resultLabel.Text = $"Simulatie gemaakt! Id = {e.Result}.";
+        }
+
+        private void Form1_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            button3.PerformClick();
+        }
+
+        private void updateDatabaseButton_Click(object sender, EventArgs e)
+        {
+            sim.db.Database.Migrate();
+            Interaction.MsgBox("The database was migrated to the latest version.");
         }
     }
 }

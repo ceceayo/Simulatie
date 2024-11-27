@@ -46,6 +46,7 @@
             viewSimulationButton = new Button();
             simulationTree = new TreeView();
             createSimulationBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            updateDatabaseButton = new Button();
             ((System.ComponentModel.ISupportInitialize)startIdSelector).BeginInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).BeginInit();
             SuspendLayout();
@@ -139,9 +140,9 @@
             // cancelButton
             // 
             cancelButton.Enabled = false;
-            cancelButton.Location = new Point(131, 526);
+            cancelButton.Location = new Point(220, 526);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(114, 108);
+            cancelButton.Size = new Size(198, 108);
             cancelButton.TabIndex = 9;
             cancelButton.Text = "ABBRECHEN";
             cancelButton.UseVisualStyleBackColor = true;
@@ -151,7 +152,7 @@
             // 
             exitButton.Location = new Point(12, 526);
             exitButton.Name = "exitButton";
-            exitButton.Size = new Size(113, 108);
+            exitButton.Size = new Size(202, 108);
             exitButton.TabIndex = 10;
             exitButton.Text = "Applicatie sluiten";
             exitButton.UseVisualStyleBackColor = true;
@@ -177,11 +178,11 @@
             // 
             // button3
             // 
-            button3.Location = new Point(251, 526);
+            button3.Location = new Point(12, 640);
             button3.Name = "button3";
-            button3.Size = new Size(167, 108);
+            button3.Size = new Size(202, 108);
             button3.TabIndex = 13;
-            button3.Text = "BEARBEITUNGSHANDBUCHOEFNUNGSBUTTON";
+            button3.Text = "BEARBEITUNGSHANDBUCHSOEFNUNGSFARBE";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
@@ -207,11 +208,23 @@
             createSimulationBackgroundWorker.DoWork += createSimulationBackgroundWorker_DoWork;
             createSimulationBackgroundWorker.RunWorkerCompleted += createSimulationBackgroundWorker_RunWorkerCompleted;
             // 
+            // updateDatabaseButton
+            // 
+            updateDatabaseButton.Location = new Point(220, 640);
+            updateDatabaseButton.Name = "updateDatabaseButton";
+            updateDatabaseButton.Size = new Size(198, 108);
+            updateDatabaseButton.TabIndex = 16;
+            updateDatabaseButton.Text = "Update database";
+            updateDatabaseButton.UseVisualStyleBackColor = true;
+            updateDatabaseButton.Click += updateDatabaseButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(430, 657);
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(430, 758);
+            Controls.Add(updateDatabaseButton);
             Controls.Add(viewSimulationButton);
             Controls.Add(simulationTree);
             Controls.Add(button3);
@@ -228,10 +241,14 @@
             Controls.Add(resultLabel);
             Controls.Add(button1);
             Controls.Add(label1);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            HelpButton = true;
+            KeyPreview = true;
             MaximizeBox = false;
             Name = "Form1";
             Text = "De TERBEELDBRENGER";
+            HelpButtonClicked += Form1_HelpButtonClicked;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)startIdSelector).EndInit();
             ((System.ComponentModel.ISupportInitialize)multipleRunsAmountSelector).EndInit();
@@ -259,5 +276,6 @@
         private Button viewSimulationButton;
         private TreeView simulationTree;
         private System.ComponentModel.BackgroundWorker createSimulationBackgroundWorker;
+        private Button updateDatabaseButton;
     }
 }
