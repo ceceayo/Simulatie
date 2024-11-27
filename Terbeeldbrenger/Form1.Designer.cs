@@ -142,7 +142,7 @@
             cancelButton.Enabled = false;
             cancelButton.Location = new Point(220, 526);
             cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(198, 108);
+            cancelButton.Size = new Size(198, 50);
             cancelButton.TabIndex = 9;
             cancelButton.Text = "ABBRECHEN";
             cancelButton.UseVisualStyleBackColor = true;
@@ -152,7 +152,7 @@
             // 
             exitButton.Location = new Point(12, 526);
             exitButton.Name = "exitButton";
-            exitButton.Size = new Size(202, 108);
+            exitButton.Size = new Size(202, 50);
             exitButton.TabIndex = 10;
             exitButton.Text = "Applicatie sluiten";
             exitButton.UseVisualStyleBackColor = true;
@@ -178,9 +178,9 @@
             // 
             // button3
             // 
-            button3.Location = new Point(12, 640);
+            button3.Location = new Point(12, 582);
             button3.Name = "button3";
-            button3.Size = new Size(202, 108);
+            button3.Size = new Size(202, 63);
             button3.TabIndex = 13;
             button3.Text = "BEARBEITUNGSHANDBUCHSOEFNUNGSFARBE";
             button3.UseVisualStyleBackColor = true;
@@ -210,9 +210,9 @@
             // 
             // updateDatabaseButton
             // 
-            updateDatabaseButton.Location = new Point(220, 640);
+            updateDatabaseButton.Location = new Point(220, 582);
             updateDatabaseButton.Name = "updateDatabaseButton";
-            updateDatabaseButton.Size = new Size(198, 108);
+            updateDatabaseButton.Size = new Size(198, 63);
             updateDatabaseButton.TabIndex = 16;
             updateDatabaseButton.Text = "Update database";
             updateDatabaseButton.UseVisualStyleBackColor = true;
@@ -223,7 +223,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(430, 758);
+            ClientSize = new Size(430, 657);
             Controls.Add(updateDatabaseButton);
             Controls.Add(viewSimulationButton);
             Controls.Add(simulationTree);
