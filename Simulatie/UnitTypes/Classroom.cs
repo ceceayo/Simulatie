@@ -37,7 +37,7 @@ namespace Simulatie.UnitTypes
             List<IUnitType> child_creations = new List<IUnitType>();
             for (int i = 0; i < schoollamps_to_make.GetNumber(); i++)
             {
-                SchoolLamp schoollamp = new SchoolLamp(args: new Dictionary<int, string>(), id: 0, owner: null);
+                HospitalLamp schoollamp = new SchoolLamp(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(schoollamp);
             }
             return child_creations;
