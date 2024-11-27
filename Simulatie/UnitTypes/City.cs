@@ -27,7 +27,7 @@ namespace Simulatie.UnitTypes
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? total_houses_to_make = sp.FindInstance(db, 3, 1, sim, "Total houses to make") as SimpleNumber;
+            SimpleNumber? total_houses_to_make = sp.FindInstance(db, 1*10000+1, 1, sim, "Total houses to make") as SimpleNumber;
             if (total_houses_to_make == null)
             {
                 Log.Fatal("Total houses to make was not found.");
@@ -40,7 +40,7 @@ namespace Simulatie.UnitTypes
                 child_creations.Add(house);
 
             }
-            SimpleNumber? total_schools_to_make = sp.FindInstance(db, 5, 1, sim, "Total schools to make") as SimpleNumber;
+            SimpleNumber? total_schools_to_make = sp.FindInstance(db, 1*10000+2, 1, sim, "Total schools to make") as SimpleNumber;
             if (total_schools_to_make == null)
             {
                 Log.Fatal("Total schools to make was not found.");
@@ -52,7 +52,7 @@ namespace Simulatie.UnitTypes
                 child_creations.Add(school);
 
             }
-            SimpleNumber? total_hospitals_to_make = sp.FindInstance(db, 5, 1, sim, "Total schools to make") as SimpleNumber;
+            SimpleNumber? total_hospitals_to_make = sp.FindInstance(db, 1*10000+3, 1, sim, "Total hospitals to make") as SimpleNumber;
             if (total_hospitals_to_make == null)
             {
                 Log.Fatal("Total hospitals to make was not found.");
