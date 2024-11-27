@@ -21,6 +21,8 @@ namespace Simulatie
             { 11, typeof(Microwave) },
             { 12, typeof(Hospital) },
             { 13, typeof(PersonalComputer) },
+
+            { 15, typeof(Airconditioningunit) },
         };
 
         public UnitProvider()
