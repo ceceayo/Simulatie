@@ -5,7 +5,7 @@ namespace Simulatie.UnitTypes
 {
     public class Hospital : IUnitType
     {
-        public int TypeNum { get; } = 3;
+        public int TypeNum { get; } = 12;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
@@ -28,7 +28,19 @@ namespace Simulatie.UnitTypes
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            return new List<IUnitType> { };
+            SimpleNumber? total_hospitallamps_to_make = sp.FindInstance(db, 12 * 10000 + 1, 1, sim, "Total houses to make") as SimpleNumber;
+            if (total_hospitallamps_to_make == null)
+            {
+                Log.Fatal("Total hospitallamps to make was not found.");
+                throw new InvalidOperationException("Total hospitallamps to make not found.");
+            }
+            List<IUnitType> child_creations = new List<IUnitType>();
+            for (int i = 0; i < total_hospitallamps_to_make.GetNumber(); i++)
+            {
+                HospitalLamp hospitallamp = new HospitalLamp(args: new Dictionary<int, string>(), id: 0, owner: this);
+                child_creations.Add(hospitallamp);
+            }
+            return child_creations;
         }
     }
 }
