@@ -14,7 +14,8 @@ namespace Simulatie
         public IGuiMode? GuiMode = null;
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
-            {1, typeof(SimpleNumber)}
+            {1, typeof(SimpleNumber)},
+            {2, typeof(Distribution)}
         };
         public StatProvider()
         {
