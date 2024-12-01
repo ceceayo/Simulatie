@@ -13,7 +13,7 @@ namespace Terbeeldbrenger
         public Form1()
         {
             InitializeComponent();
-            sim.sp.GuiMode = true;
+            sim.sp.GuiMode = new GuiMode();
         }
 
         private void button1_Click(object sender, EventArgs e)

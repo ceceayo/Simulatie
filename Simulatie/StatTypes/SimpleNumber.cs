@@ -23,16 +23,16 @@ namespace Simulatie.StatTypes
             Role = me_in_db.Role;
 
         }
-        public void AskForValueInput(SimulationDatabaseContext db, bool guiMode, string Message)
+        public void AskForValueInput(SimulationDatabaseContext db, IGuiMode? guiMode, string message)
         {
             Log.Information("Please enter a number for the value of this statistic. Type = {type}, Role = {role}", TypeNum, Role);
             int value;
             while (true)
             {
                 string input;
-                if (guiMode)
+                if (guiMode != null)
                 {
-                    input = Interaction.InputBox(Message, "Enter a number", "0");
+                    input = guiMode.InputBox(message, "Enter a number", "0");
                 }
                 else
                 {

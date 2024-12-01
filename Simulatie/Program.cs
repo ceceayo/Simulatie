@@ -21,7 +21,7 @@ Log.Logger = log;
 // Note: This sample requires the database to be created before running.
 
 
-Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un simulation.");
+Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un simulation. [m]igrate.");
 char input = Console.ReadKey().KeyChar;
 Console.WriteLine();
 
@@ -29,7 +29,11 @@ Simulator simulator = new Simulator();
 
 Log.Information("Database path is {DbPath}.", simulator.db.DbPath);
 
-if (input == 'c')
+if (input == 'm')
+{
+    simulator.db.Database.Migrate();
+} 
+else if (input == 'c')
 {
     var res = simulator.CreateSimulation();
     Log.Information("Finished creating simulation with id {res}", res);

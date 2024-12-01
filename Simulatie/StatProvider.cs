@@ -11,7 +11,7 @@ namespace Simulatie
 {
     public class StatProvider
     {
-        public bool GuiMode = false;
+        public IGuiMode? GuiMode = null;
         public Dictionary<int, Type> Types = new Dictionary<int, Type>
         {
             {1, typeof(SimpleNumber)}
