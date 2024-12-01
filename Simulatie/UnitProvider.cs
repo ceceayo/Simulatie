@@ -106,7 +106,7 @@ namespace Simulatie
             foreach (UnitArgument z in x)
             {
                 Log.Debug("Working on making args in GetArgsByUnit. Doing arg {@arg}", z);
-                list.Add(z.Id, z.Value);
+                list.Add(z.Type, z.Value);
             }
             Log.Debug("GetArgsByUnit will send {@list}", list);
             return list;
@@ -124,15 +124,16 @@ namespace Simulatie
                 db.SaveChanges();
                 Log.Debug("Saving changes");
                 db.UnitArguments.Where(b => b.Owner == db.SimulatedUnits.Find(unit.Id)).ExecuteDelete();
+                db.SaveChanges();
                 Log.Debug("Deleted old arguments. Now adding new arguments.");
                 foreach (var I in unit.Arguments)
                 {
                     var x = new UnitArgument { Owner = db.SimulatedUnits.Find(unit.Id), Type = I.Key, Value = I.Value };
                     Log.Debug("Iterating over unit's arguments. {@I}, {@x}", I, x);
                     db.UnitArguments.Add(x);
-                    db.SaveChanges();
-                    Log.Debug("Saving changes.");
                 }
+                Log.Debug("Saving changes.");
+                db.SaveChanges();
                 Log.Debug("Finished saving unit {@unit}.", unit);
             }
         }
