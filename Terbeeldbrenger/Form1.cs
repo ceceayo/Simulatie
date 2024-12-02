@@ -81,7 +81,7 @@ namespace Terbeeldbrenger
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             Simulator sim = new Simulator();
-            sim.sp.GuiMode = true;
+            sim.sp.GuiMode = new GuiMode();
             int startId = int.Parse(startIdSelector.Value.ToString());
             int steps = int.Parse(multipleRunsAmountSelector.Value.ToString());
             var simul = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == startId);
@@ -195,7 +195,7 @@ namespace Terbeeldbrenger
         private void createSimulationBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             Simulator sim = new Simulator();
-            sim.sp.GuiMode = true;
+            sim.sp.GuiMode = new GuiMode();
             int id = sim.CreateSimulation();
             e.Result = id;
         }
