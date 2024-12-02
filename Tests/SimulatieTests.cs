@@ -54,20 +54,71 @@ public class SimulatieTests
         Assert.AreEqual(up.Types[1], typeof(City));
         Assert.AreEqual(up.Types[2], typeof(House));
     }
-    /* TEST TEMPORARILY DISABLED
+
     [TestMethod]
-    public void TestSaveUnitInDatabase()
+    public void TestSimulatorCreateSimulation()
     {
+        var simulator = new Simulator();
+        int simulationId = simulator.CreateSimulation();
         using var db = new SimulationDatabaseContext();
+        var simulation = db.Simulations.Find(simulationId);
+        Assert.IsNotNull(simulation);
+    }
+
+    [TestMethod]
+    public void TestSimulatorRunSimulationAt()
+    {
+        var simulator = new Simulator();
+        int simulationId = simulator.CreateSimulation();
+        using var db = new SimulationDatabaseContext();
+        var simulation = db.Simulations.Find(simulationId);
+        var instance = simulator.up.GetInstance(simulation.Unit.Id, db);
+        int resourcesUsed = simulator.RunSimulationAt(instance, simulation);
+        Assert.IsTrue(resourcesUsed >= 0);
+    }
+
+    [TestMethod]
+    public void TestSimulatorRunSimulationRecursive()
+    {
+        var simulator = new Simulator();
+        int simulationId = simulator.CreateSimulation();
+        using var db = new SimulationDatabaseContext();
+        var simulation = db.Simulations.Find(simulationId);
+        var instance = simulator.up.GetInstance(simulation.Unit.Id, db);
+        var result = simulator.RunSimulationRecursive(instance, simulation);
+        Assert.IsTrue(result.ResourcesUsed >= 0);
+    }
+
+    [TestMethod]
+    public void TestUnitProviderGetInstance()
+    {
         var up = new UnitProvider();
-        int idOfGeneratedUnit = up.MakeInstance(
-            new House(-1, new Dictionary<int, string>()), db, null);
+        using var db = new SimulationDatabaseContext();
+        int idOfGeneratedUnit = up.MakeInstance(new House(-1, new Dictionary<int, string>()), db, null);
         var unitFromDb = db.SimulatedUnits.Find(idOfGeneratedUnit);
         var unitFromUp = up.GetInstance(idOfGeneratedUnit, db);
         Assert.IsNotNull(unitFromDb);
         Assert.IsNotNull(unitFromUp);
         Assert.AreEqual(unitFromDb.Type, unitFromUp.TypeNum);
         Assert.AreEqual(unitFromDb.Id, unitFromUp.Id);
-        
-    }*/
+    }
+
+    [TestMethod]
+    public void TestStatProviderFindInstance()
+    {
+        var sp = new StatProvider();
+        using var db = new SimulationDatabaseContext();
+        var simulator = new Simulator();
+        int simulationId = simulator.CreateSimulation();
+        var simulation = db.Simulations.Find(simulationId);
+        var statInstance = sp.FindInstance(db, 1, 1, simulation, "Test message");
+        Assert.IsNotNull(statInstance);
+    }
+
+    [TestMethod]
+    public void TestSimulatorObjectCreation()
+    {
+        var simulator = new Simulator();
+        Assert.IsNotNull(simulator);
+    }
 }
