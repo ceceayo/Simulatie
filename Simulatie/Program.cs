@@ -1,10 +1,7 @@
-﻿using Simulatie;
+using Simulatie;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Emit;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
@@ -17,9 +14,6 @@ using var log = new LoggerConfiguration()
     .WriteTo.File(logPath)
     .CreateLogger();
 Log.Logger = log;
-
-// Note: This sample requires the database to be created before running.
-
 
 Log.Information("Waiting for OPTION to be selected. [c]reate sim., [r]un simulation. [m]igrate.");
 char input = Console.ReadKey().KeyChar;

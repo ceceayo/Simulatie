@@ -1,11 +1,8 @@
-﻿using Serilog;
+using Serilog;
 using Simulatie.StatTypes;
-using Simulatie.UnitTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simulatie
 {
@@ -17,10 +14,12 @@ namespace Simulatie
             {1, typeof(SimpleNumber)},
             {2, typeof(Distribution)}
         };
+
         public StatProvider()
         {
             Log.Debug("Created a statprovider");
         }
+
         public Type? GetType(int type)
         {
             if (Types.ContainsKey(type))
@@ -29,6 +28,7 @@ namespace Simulatie
             }
             return null;
         }
+
         public IStatType? GetInstance(int id, SimulationDatabaseContext db)
         {
             var o = db.Statistics.Find(id);
@@ -36,11 +36,12 @@ namespace Simulatie
             if (Types.ContainsKey(o.Type))
             {
                 var t = Types[o.Type];
-                var i = Activator.CreateInstance(t, [id, db]) as IStatType;
+                var i = Activator.CreateInstance(t, new object[] { id, db }) as IStatType;
                 return i;
             }
             return null;
         }
+
         public IStatType FindInstance(SimulationDatabaseContext db, int role, int type, Simulation sim, string message)
         {
             var o = db.Statistics.Where(x => x.Role == role && x.Type == type && x.Owner == sim).ToList();

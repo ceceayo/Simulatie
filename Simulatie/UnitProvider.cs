@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Simulatie.UnitTypes;
 
@@ -22,7 +22,6 @@ namespace Simulatie
             { 12, typeof(Hospital) },
             { 13, typeof(PersonalComputer) },
             { 14, typeof(HospitalLamp) },
-
             { 15, typeof(Airconditioningunit) },
         };
 
@@ -49,17 +48,17 @@ namespace Simulatie
                 var t = Types[o.Type];
                 IUnitType? parent = null;
                 SimulatedUnit? owner = db.SimulatedUnits.Include(b => b.Owner).Single(b => b.Id == id);
-                if (owner.Owner == null) { }
-                else
+                if (owner.Owner != null)
                 {
                     parent = GetInstance(owner.Owner.Id, db);
                 }
-                var i = Activator.CreateInstance(t, [id, GetArgsByUnit(o, db), parent]) as IUnitType;
+                var i = Activator.CreateInstance(t, id, GetArgsByUnit(o, db), parent) as IUnitType;
                 Log.Debug("GetInstance will return {@i}", i);
                 return i;
             }
             return null;
         }
+
         public int MakeInstance(IUnitType unit, SimulationDatabaseContext db, IUnitType? owner)
         {
             Log.Debug("Making instance in db of {@unit}, owned by {@owner}", unit, owner);
@@ -81,11 +80,11 @@ namespace Simulatie
             Log.Debug("Id of new unit is {id}", x.Id);
             return x.Id;
         }
+
         public List<IUnitType> GetAllOwnedBy(IUnitType owner, SimulationDatabaseContext db)
         {
             Log.Debug("Owner is {@owner}", owner);
             var x = db.SimulatedUnits.Include(b => b.Owner).Where(b => b.Owner.Equals(db.SimulatedUnits.Find(owner.Id))).ToList();
-            //var x = db.SimulatedUnits.Include(b => b.Owner).Where(b => b.Owner == db.SimulatedUnits.Find(owner.Id)).ToList();
             List<IUnitType> y = new List<IUnitType>();
             Log.Debug("x is {@x}", x);
             foreach (var z in x)
@@ -93,7 +92,11 @@ namespace Simulatie
                 if (z is SimulatedUnit)
                 {
                     y.Add(this.GetInstance(z.Id, db) ?? throw new InvalidOperationException());
-                } else { Log.Error("z is not a SimulatedUnit"); }
+                }
+                else
+                {
+                    Log.Error("z is not a SimulatedUnit");
+                }
             }
             return y;
         }
@@ -116,7 +119,8 @@ namespace Simulatie
         {
             SimulatedUnit? loaded_unit = db.SimulatedUnits.First(b => b.Id == unit.Id);
             Log.Debug("Loaded a unit from the db. Value is {@loaded}", loaded_unit);
-            if (loaded_unit != null) {
+            if (loaded_unit != null)
+            {
                 Log.Debug("Unit is not null.");
                 loaded_unit.Id = unit.Id;
                 loaded_unit.Type = unit.TypeNum;
