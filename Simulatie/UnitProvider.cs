@@ -23,6 +23,7 @@ namespace Simulatie
             { 13, typeof(PersonalComputer) },
             { 14, typeof(HospitalLamp) },
             { 15, typeof(Airconditioningunit) },
+            { 16, typeof(Washingmachine) },
             { 17, typeof(Dryer) },
         };
 
