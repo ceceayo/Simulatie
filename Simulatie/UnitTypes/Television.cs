@@ -14,7 +14,7 @@ namespace Simulatie.UnitTypes
             this.Id = id;
             this.Arguments = args;
             Owner = owner;
-            Log.Debug("Create IUnitType instance of type Personalcomputer with value {val}.", this);
+            Log.Debug("Create IUnitType instance of type Television with value {val}.", this);
         }
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
