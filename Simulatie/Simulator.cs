@@ -83,7 +83,7 @@ namespace Simulatie
 
         RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit, Simulation sim)
         {
-            Log.Information("Calling RunSimulationRecursive on unit {@unit}", unit);
+            //Log.Information("Calling RunSimulationRecursive on unit {@unit}", unit);
             int TotalPowerUsed = 0;
             List<IUnitType> new_units = new List<IUnitType>();
             var q = db.SimulatedUnits.Where(b => b.Id == unit.Id).First();
@@ -91,13 +91,13 @@ namespace Simulatie
             var result = unit.OnTick(db, sp, up, sim);
             SimulatedUnit unitToSetUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
             unitToSetUsedResourcesOf.ResourcesUsedLastRound = result.ResourcesUsed;
-            Log.Information("Setting resources used of unit {Id} to {power} watts", unit.Id, result.ResourcesUsed);
+            //Log.Information("Setting resources used of unit {Id} to {power} watts", unit.Id, result.ResourcesUsed);
             save_db(db);
             TotalPowerUsed += result.ResourcesUsed;
             new_units.Add(result.NewUnit);
-            Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
+            //Log.Information("Running first step of simulation used {power} watts", result.ResourcesUsed);
             var children = up.GetAllOwnedBy(unit, db);
-            Log.Information("Children of {Id} are {@children}", unit.Id, children);
+            //Log.Information("Children of {Id} are {@children}", unit.Id, children);
             foreach (var child in children)
             {
                 RunSimulationRecursiveResult ResultOfChild = RunSimulationRecursive(child, sim);
@@ -110,6 +110,7 @@ namespace Simulatie
             SimulatedUnit unitToSetRecursiveUsedResourcesOf = db.SimulatedUnits.Find(unit.Id);
             unitToSetRecursiveUsedResourcesOf.ResourcesUsedLastRoundRecursive = TotalPowerUsed;
             save_db(db);
+            //Log.Information("now at {id}", unit.Id);
             return new RunSimulationRecursiveResult
             {
                 NewUnits = new_units,
@@ -119,7 +120,7 @@ namespace Simulatie
 
         public int RunSimulationAt(IUnitType start, Simulation sim)
         {
-            Log.Information("Running simulation at {@start}", start);
+            Log.Debug("Running simulation at {@start}", start);
             RunSimulationRecursiveResult result = RunSimulationRecursive(start, sim);
             Log.Information("Recursive simulation has ended with {power} watt.", result.ResourcesUsed);
             if (sim.Hour == 23)

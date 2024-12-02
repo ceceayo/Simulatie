@@ -44,9 +44,9 @@ else if (input == 'r')
         var instance = simulator.up.GetInstance(sim.Unit.Id, simulator.db);
         if (instance != null)
         {
-            Log.Information("running simulation on {@instance}", instance);
+            //Log.Information("running simulation on {@instance}", instance);
             var res = simulator.RunSimulationAt(instance, sim);
-            log.Information("RunSimulationAt returned {res}", res);
+            //log.Information("RunSimulationAt returned {res}", res);
         }
         else
         {
