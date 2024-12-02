@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +13,13 @@ namespace Simulatie
         public SimulationDatabaseContext db;
         public UnitProvider up;
         public StatProvider sp;
+
         public Simulator()
         {
             Log.Information("Created a Simulator Object.");
             db = new SimulationDatabaseContext();
             up = new UnitProvider();
             sp = new StatProvider();
-
-            
         }
 
         internal void save_db(SimulationDatabaseContext db)
@@ -81,7 +80,6 @@ namespace Simulatie
             }
             return sim.Id;
         }
-
 
         RunSimulationRecursiveResult RunSimulationRecursive(IUnitType unit, Simulation sim)
         {

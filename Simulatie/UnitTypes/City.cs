@@ -1,4 +1,4 @@
-﻿using Serilog;
+using Serilog;
 using Simulatie.StatTypes;
 
 namespace Simulatie.UnitTypes
@@ -9,10 +9,11 @@ namespace Simulatie.UnitTypes
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; }
         public IUnitType? Owner { get; set; }
+
         public City(int id, Dictionary<int, string> args, IUnitType? owner)
         {
-            this.Id = id;
-            this.Arguments = args;
+            Id = id;
+            Arguments = args;
             Owner = owner;
             Log.Debug("Create IUnitType instance of type City with value {val}.", this);
         }
@@ -21,50 +22,54 @@ namespace Simulatie.UnitTypes
         {
             return new UnitTickResponse
             {
-                NewUnit = new City(args: this.Arguments, id: this.Id, owner: Owner),
+                NewUnit = new City(args: Arguments, id: Id, owner: Owner),
                 ResourcesUsed = 0
             };
         }
+
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? total_houses_to_make = sp.FindInstance(db, 1*10000+1, 1, sim, "Total houses to make") as SimpleNumber;
-            if (total_houses_to_make == null)
+            SimpleNumber? totalHousesToMake = sp.FindInstance(db, 1 * 10000 + 1, 1, sim, "Total houses to make") as SimpleNumber;
+            if (totalHousesToMake == null)
             {
                 Log.Fatal("Total houses to make was not found.");
                 throw new InvalidOperationException("Total houses to make not found.");
             }
-            List<IUnitType> child_creations = new List<IUnitType>();
-            for (int i = 0; i < total_houses_to_make.GetNumber(); i++)
+
+            List<IUnitType> childCreations = new List<IUnitType>();
+            for (int i = 0; i < totalHousesToMake.GetNumber(); i++)
             {
                 House house = new House(args: new Dictionary<int, string>(), id: 0, owner: this);
-                child_creations.Add(house);
-
+                childCreations.Add(house);
             }
-            SimpleNumber? total_schools_to_make = sp.FindInstance(db, 1*10000+2, 1, sim, "Total schools to make") as SimpleNumber;
-            if (total_schools_to_make == null)
+
+            SimpleNumber? totalSchoolsToMake = sp.FindInstance(db, 1 * 10000 + 2, 1, sim, "Total schools to make") as SimpleNumber;
+            if (totalSchoolsToMake == null)
             {
                 Log.Fatal("Total schools to make was not found.");
                 throw new InvalidOperationException("Total schools to make not found.");
             }
-            for (int i = 0; i < total_schools_to_make.GetNumber(); i++)
+
+            for (int i = 0; i < totalSchoolsToMake.GetNumber(); i++)
             {
                 School school = new School(args: new Dictionary<int, string>(), id: 0, owner: this);
-                child_creations.Add(school);
-
+                childCreations.Add(school);
             }
-            SimpleNumber? total_hospitals_to_make = sp.FindInstance(db, 1*10000+3, 1, sim, "Total hospitals to make") as SimpleNumber;
-            if (total_hospitals_to_make == null)
+
+            SimpleNumber? totalHospitalsToMake = sp.FindInstance(db, 1 * 10000 + 3, 1, sim, "Total hospitals to make") as SimpleNumber;
+            if (totalHospitalsToMake == null)
             {
                 Log.Fatal("Total hospitals to make was not found.");
                 throw new InvalidOperationException("Total hospitals to make not found.");
             }
-            for (int i = 0; i < total_hospitals_to_make.GetNumber(); i++)
+
+            for (int i = 0; i < totalHospitalsToMake.GetNumber(); i++)
             {
                 Hospital hospital = new Hospital(args: new Dictionary<int, string>(), id: 0, owner: this);
-                child_creations.Add(hospital);
-
+                childCreations.Add(hospital);
             }
-            return child_creations;
+
+            return childCreations;
         }
     }
 }
