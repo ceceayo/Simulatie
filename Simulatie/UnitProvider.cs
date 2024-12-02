@@ -25,6 +25,7 @@ namespace Simulatie
             { 15, typeof(Airconditioningunit) },
             { 16, typeof(Washingmachine) },
             { 17, typeof(Dryer) },
+            { 18, typeof(Television) },
         };
 
         public UnitProvider()
