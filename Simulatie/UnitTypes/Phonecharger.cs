@@ -5,7 +5,7 @@ namespace Simulatie.UnitTypes
 {
     public class PhoneCharger : IUnitType
     {
-        public int TypeNum { get; } = 4;
+        public int TypeNum { get; } = 10;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }

@@ -5,7 +5,7 @@ namespace Simulatie.UnitTypes
 {
     public class Airconditioningunit : IUnitType
     {
-        public int TypeNum { get; } = 3;
+        public int TypeNum { get; } = 15;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
@@ -19,11 +19,22 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? statInstance = sp.FindInstance(db, 15*10000+1, 1, sim, "Electricity used by AirConditioningUnit") as SimpleNumber;
+            int power_usage;
+            if (Arguments.Keys.Contains(1))
+            {
+                power_usage = int.Parse(Arguments[1]);
+            }
+            else
+            {
+                Distribution? statInstance =
+                    sp.FindInstance(db, 15*10000+1, 2, sim, "Electricity used by airco's") as Distribution;
+                Arguments[1] = statInstance?.GetNumber().ToString() ?? "0";
+                power_usage = int.Parse(Arguments[1]);
+            }
             return new UnitTickResponse
             {
                 NewUnit = new Airconditioningunit(args: this.Arguments, id: this.Id, owner: Owner),
-                ResourcesUsed = statInstance != null ? int.Parse(statInstance.Value) : 0 // Assuming IStatType has an Id property
+                ResourcesUsed = power_usage
             };
         }
         public List<IUnitType> OnCreate(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)

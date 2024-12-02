@@ -5,7 +5,7 @@ namespace Simulatie.UnitTypes
 {
     public class PersonalComputer : IUnitType
     {
-        public int TypeNum { get; } = 3;
+        public int TypeNum { get; } = 13;
         public int Id { get; set; }
         public Dictionary<int, string> Arguments { get; set; } = new Dictionary<int, string>();
         public IUnitType? Owner { get; set; }
@@ -19,7 +19,7 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? statInstance = sp.FindInstance(db, 2, 1, sim, "Electricity used by personalcomputers") as SimpleNumber;
+            SimpleNumber? statInstance = sp.FindInstance(db, 13*10000+1, 1, sim, "Electricity used by personalcomputers") as SimpleNumber;
             return new UnitTickResponse
             {
                 NewUnit = new PersonalComputer(args: this.Arguments, id: this.Id, owner: Owner),

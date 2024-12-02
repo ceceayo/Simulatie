@@ -19,7 +19,7 @@ namespace Simulatie.UnitTypes
 
         public UnitTickResponse? OnTick(SimulationDatabaseContext db, StatProvider sp, UnitProvider up, Simulation sim)
         {
-            SimpleNumber? statInstance = sp.FindInstance(db, 7*10000+1, 1, sim, "Electricity used by lamps in hospital") as SimpleNumber;
+            SimpleNumber? statInstance = sp.FindInstance(db, 14*10000+1, 1, sim, "Electricity used by lamps in hospital") as SimpleNumber;
             if (sim.Day % 7 < 6 && sim.Hour > 8 && sim.Hour < 17)
             {
                 return new UnitTickResponse

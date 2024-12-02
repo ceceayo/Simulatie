@@ -28,7 +28,7 @@ namespace Simulatie.UnitTypes
             else
             {
                 Distribution? statInstance =
-                    sp.FindInstance(db, 2, 2, sim, "Electricity used by lamps") as Distribution;
+                    sp.FindInstance(db, 3 * 10000 + 1, 2, sim, "Electricity used by lamps") as Distribution;
                 Arguments[1] = statInstance?.GetNumber().ToString() ?? "0";
                 power_usage = int.Parse(Arguments[1]);
             }
