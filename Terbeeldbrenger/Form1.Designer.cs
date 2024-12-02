@@ -223,7 +223,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(430, 657);
+            ClientSize = new Size(963, 657);
             Controls.Add(updateDatabaseButton);
             Controls.Add(viewSimulationButton);
             Controls.Add(simulationTree);

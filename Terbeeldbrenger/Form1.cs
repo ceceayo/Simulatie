@@ -177,7 +177,7 @@ namespace Terbeeldbrenger
 
         private void viewSimulationButton_Click_x()
         {
-            this.Size = new System.Drawing.Size(1000, 700);
+            //this.Size = new System.Drawing.Size(1000, 700);
             simulationTree.Nodes.Clear();
             int simulationId = int.Parse(startIdSelector.Value.ToString());
             var simulation = sim.db.Simulations.Include(b => b.Unit).Single(b => b.Id == simulationId);
