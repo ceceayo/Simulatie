@@ -35,7 +35,9 @@ namespace Simulatie.UnitTypes
             SimpleNumber? microwaves_to_make = sp.FindInstance(db, 2 * 10000+5, 1, sim, "Total microwaves in house") as SimpleNumber;
             SimpleNumber? personalcomputers_to_make = sp.FindInstance(db, 2 * 10000 + 6, 1, sim, "Total personalcomputers in house") as SimpleNumber;
             SimpleNumber? airconditioningunits_to_make = sp.FindInstance(db, 2 * 10000 + 7, 1, sim, "Total airconditioningunits in house") as SimpleNumber;
-            SimpleNumber? washingmachine_to_make = sp.FindInstance(db, 2 * 10000 + 8, 1, sim, "Total washingmachines in house") as SimpleNumber;
+            SimpleNumber? washingmachines_to_make = sp.FindInstance(db, 2 * 10000 + 8, 1, sim, "Total washingmachines in house") as SimpleNumber;
+            SimpleNumber? dryers_to_make = sp.FindInstance(db, 2 * 10000 + 9, 1, sim, "Total dryers in house") as SimpleNumber;
+            SimpleNumber? televisions_to_make = sp.FindInstance(db, 2 * 10000 + 10, 1, sim, "Total televisions in house") as SimpleNumber;
             if (lamps_to_make == null)
             {
                 Log.Fatal("Total lamps to make per house was not found.");
@@ -84,10 +86,22 @@ namespace Simulatie.UnitTypes
                 child_creations.Add(airconditioningunit);
 
             }
-            for (int i = 0; i < washingmachine_to_make.GetNumber(); i++)
+            for (int i = 0; i < washingmachines_to_make.GetNumber(); i++)
             {
-                Washingmachine washingmachine= new Washingmachine(args: new Dictionary<int, string>(), id: 0, owner: null);
+                Washingmachine washingmachine = new Washingmachine(args: new Dictionary<int, string>(), id: 0, owner: null);
                 child_creations.Add(washingmachine);
+
+            }
+            for (int i = 0; i < dryers_to_make.GetNumber(); i++)
+            {
+                Dryer dryer = new Dryer(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(dryer);
+
+            }
+            for (int i = 0; i < televisions_to_make.GetNumber(); i++)
+            {
+                Television television = new Television(args: new Dictionary<int, string>(), id: 0, owner: null);
+                child_creations.Add(television);
 
             }
             return child_creations;
